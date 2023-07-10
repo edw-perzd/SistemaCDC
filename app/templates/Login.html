@@ -18,22 +18,33 @@
                     {% endif %}
                 {% endwith %}
                 <form action="/login" method="POST">
+                    {{ form.csrf_token }}
                     <h2>Inicio de Sesión</h2>
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     <div class="inputbox">
                         <ion-icon name="mail-outline"></ion-icon>
-                        <input type="email" name= "email" required>
-                        <label for="">Correo</label>
+                        {{ form.correoE.label }}
+                        {{ form.correoE(class="entrada") }}
+                        {% if form.correoE.errors %}
+                            {% for error in form.correoE.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                     <div class="inputbox">
                         <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="password" name="password" required>
-                        <label for="">Contraseña</label>
+                        {{ form.contrasenia.label }}
+                        {{ form.contrasenia(class="entrada") }}
+                        {% if form.contrasenia.errors %}
+                            {% for error in form.contrasenia.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                     <div class="forget">
                         <label for=""><a href="">Olvide mi Contraseña</a></label>
                     </div>
-                    <button>Vamos!</button>
+                    {{ form.submit(class="btn") }}
                     <div class="registro">
                         <p>No tienes una cuenta? </p>
                         <a href="">Registrate</a>

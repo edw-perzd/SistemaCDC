@@ -46,11 +46,11 @@ h2{
     pointer-events: none;
     transition: .5s;
 }
-input:focus ~label,
+input:focus ~ label,
 input:valid ~ label{
     top: -5px;
 }
-.inputbox input{
+.inputbox .entrada{
     width: 100%;
     height: 50px;
     background: transparent;
@@ -84,7 +84,7 @@ input:valid ~ label{
 .forget label a:hover{
     text-decoration: underline;
 }
-button{
+.btn{
     width: 100%;
     height: 40px;
     border-radius: 40px;
@@ -101,7 +101,7 @@ button{
     text-align: center;
     margin: 25px 0 10px;
 }
-registro  a{
+.registro  a{
     text-decoration: none;
     color: #e0dddd;
     font-weight: 600;

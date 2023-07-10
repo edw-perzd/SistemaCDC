@@ -1,66 +1,32 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
-from flask_mysqldb import MySQL
-from werkzeug.security import check_password_hash
-from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin
+# from werkzeug.security import check_password_hash
+from flask_login import LoginManager, login_user, logout_user, login_required
 
 from flask_wtf.csrf import CSRFProtect
+
+# Imports from DB
+from db.alumnos import Alumno
+
+# Imports from Forms
+from forms.alumno_forms import Ingresar
 
 app = Flask(__name__)
 
 app.secret_key = 'B!1weNAt1T^%kvhUI*S^'
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'cdctexcalac'
-
 csrf = CSRFProtect()
-db = MySQL(app)
+
 login_manager_app = LoginManager(app)
 
-def get_by_id(db, id):
-    try:
-        cursor = db.connection.cursor()
-        sql = "SELECT id_alumno, correoE_alumno FROM alumnos WHERE id_alumno = '{}'".format(id)
-        cursor.execute(sql)
-        row = cursor.fetchone()
-        if row != None:
-            user = Usuario(row[0], row[1], None)
-            return user
-        else:
-            return None
-    except Exception as ex:
-        raise Exception(ex)
+
 
 @login_manager_app.user_loader
 def load_user(id):
-    return get_by_id(db, id)
+    return Alumno.obtener_por_id(id)
 
-# Proceso Login
-class Usuario(UserMixin):
-    def __init__(self, id, correoE, contrasenia):
-        self.id = id
-        self.correoE = correoE
-        self.contrasenia = contrasenia
-
-    @classmethod
-    def check_password(self, hashed_password, password):
-        return check_password_hash(hashed_password, password)
-
-def loginDB(db, user):
-    try:
-        cursor = db.connection.cursor()
-        sql = "SELECT id_alumno, correoE_alumno, contrasenia_alumno FROM alumnos WHERE correoE_alumno = '{}'".format(user.correoE)
-        cursor.execute(sql)
-        row = cursor.fetchone()
-        if row != None:
-            user = Usuario(row[0], row[1], row[2])
-            return user
-        else:
-            return None
-    except Exception as ex:
-        raise Exception(ex)
-
+    # @classmethod
+    # def check_password(self, hashed_password, password):
+        #return check_password_hash(hashed_password, password)
 
 ###################################
 @app.route("/")
@@ -73,23 +39,21 @@ def home():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        print(request.form['email'])
-        print(request.form['password'])
-        user = Usuario(0, request.form['email'], request.form['password']) 
-        logged_user = loginDB(db, user)
+    form = Ingresar()
+    if form.validate_on_submit():
+        # alumno = Alumno(None, None, None, form.correoE.data, form.contrasenia.data, None, None, None) 
+        logged_user = Alumno.login(form.correoE.data, form.contrasenia.data)
         if logged_user != None:
             if logged_user.contrasenia:
                 login_user(logged_user)
                 return redirect(url_for('home'))
             else:
                 flash("Contraseña Invalida...")
-                return render_template('Login.html')
+                return render_template('Login.html', form=form)
         else:
             flash("Usuario no encontrado...")
-            return render_template('Login.html')
-    else:
-        return render_template('Login.html')
+            return render_template('Login.html', form=form)
+    return render_template('Login.html', form=form)
 
 @app.route("/logout")
 def logout():
