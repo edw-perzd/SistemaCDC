@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Inicio
+{% endblock %}
+
+{% block content %}
+    {% if 'correoE' in session %}
+        <h1>Bienvenido {{ session['nombre'] }} - {{ session['rol'] }}</h1>
+        <a href="{{ url_for('user.logout') }}">Salir de la sesion</a>
+    {% else %}
+        <h1>No usuario</h1>
+    {% endif %}
+{% endblock %}

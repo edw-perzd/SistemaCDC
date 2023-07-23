@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}
+    Registrate
+{% endblock %}
+
+{% block content %}
+<h1>Registro</h1>
+<form method="post">
+    {{ form.csrf_token }}
+    <div>
+        {{ form.nombre.label }}
+        {{ form.nombre(autocomplete="off") }}
+        {% if form.nombre.errors %}
+            {% for error in form.nombre.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.aPaterno.label }}
+        {{ form.aPaterno() }}
+        {% if form.aPaterno.errors %}
+            {% for error in form.aPaterno.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.aMaterno.label }}
+        {{ form.aMaterno() }}
+        {% if form.aMaterno.errors %}
+            {% for error in form.aMaterno.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.correoE.label }}
+        {{ form.correoE() }}
+        {% if form.correoE.errors %}
+            {% for error in form.correoE.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.contrasenia.label }}
+        {{ form.contrasenia() }}
+        {% if form.contrasenia.errors %}
+            {% for error in form.contrasenia.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.contrasenia_confirm.label }}
+        {{ form.contrasenia_confirm() }}
+        {% if form.contrasenia_confirm.errors %}
+            {% for error in form.contrasenia_confirm.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.telefono.label }}
+        {{ form.telefono() }}
+        {% if form.telefono.errors %}
+            {% for error in form.telefono.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.edad.label }}
+        {{ form.edad() }}
+        {% if form.edad.errors %}
+            {% for error in form.edad.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.submit() }}
+    </div>
+</form>
+{% endblock %}
