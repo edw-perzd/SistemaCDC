@@ -1,0 +1,147 @@
+body{
+    background-color: blanchedalmond;
+    min-width: 400px;
+}
+
+.nvbar{
+    background-color: #1b3039;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 85px;
+    padding: 5px 10%;
+}
+
+.nvbar .logo{
+    cursor: pointer;
+    margin-right: auto;
+}
+.nvbar .logo img{
+    height: 70px;
+    width: auto;
+    transition: all 0.3s;
+}
+
+.nvbar .logo img:hover{
+    transform: scale(1.2);
+}
+
+.nvbar .nav_links{
+    list-style: none;
+}
+
+.nvbar .nav_links li{
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.nvbar .nav_links li:hover, 
+.overlay a:hover{
+    transform: scale(1.1);
+}
+
+.nvbar .nav_links a{
+    font-size: 700;
+    color: #fff;
+}
+
+.nvbar .nav_links li a:hover{
+    color: #A63192;
+}
+
+.menu {
+    display:none;
+}
+
+.nvbar .btn button, 
+.nvbar .menu button{
+    margin-left: 20px;
+    font-weight: 700;
+    color: #fff;
+    padding: 9px 25px;
+    background: #A63192;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+
+.nvbar .btn button:hover, 
+.nvbar .menu button:hover{
+    background-color: floralwhite;
+    color: #A63192;
+    transform: scale(1.1);
+}
+
+@media screen and (max-width: 800px){
+    .nav_links, .btn{
+    display: none;
+    }
+    .menu{
+        display: inherit;
+    }
+}
+
+
+/*Todo lo que tenga la extencion hover es para
+la animacion de los textos*/
+
+/*Lo que sigue de aqui es para lo responsive*/
+
+.nvbar a{
+    text-decoration: none;
+}
+
+.nvbar .overlay{
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    background-color: #1b3039;
+    overflow: hidden;
+    transition: all 0.3s ease 0s;
+}
+
+.nvbar .overlay .overlay_content{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.nvbar .overlay a{
+    padding: 15px;
+    font-size: 36px;
+    display: block;
+    transition: all 0.3s ease 0s;
+    font-weight: 700;
+    color: #fff;
+}
+
+.nvbar .overlay a:hover,
+.nvbar .overlay a:focus{
+    color: #A63192;
+}
+
+.nvbar .overlay .close{
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 65px;
+}
+
+@media screen and (max-height:450px){
+    .nvbar .overlay a{
+        font-size: 20px;
+    }
+
+    .nvbar .overlay .close{
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
+    }
+}

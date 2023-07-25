@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 from flask_wtf.csrf import CSRFProtect
 
@@ -16,6 +16,7 @@ csrf = CSRFProtect()
 app.register_blueprint(home_views)
 app.register_blueprint(user_views)
 app.register_blueprint(error_views)
+
 
 if __name__ == '__main__':
     csrf.init_app(app)

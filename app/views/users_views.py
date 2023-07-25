@@ -23,12 +23,11 @@ def register():
         contrasenia = form.contrasenia.data
         telefono = form.telefono.data
         edad = form.edad.data
-
+        rol = form.rol.data
         fecha_actual = datetime.datetime.now().date()
 
-        user = Usuario(nombre, aPaterno, aMaterno, correoE, contrasenia, telefono, edad, None, None, fecha_actual)
+        user = Usuario(nombre, aPaterno, aMaterno, correoE, contrasenia, telefono, edad, rol, None, fecha_actual)
         user.guardar()
-
         return redirect(url_for('user.login'))
     return render_template('usuarios/register.html', form=form)
 

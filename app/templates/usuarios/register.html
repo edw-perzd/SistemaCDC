@@ -4,83 +4,110 @@
 {% endblock %}
 
 {% block content %}
-<h1>Registro</h1>
-<form method="post">
-    {{ form.csrf_token }}
-    <div>
-        {{ form.nombre.label }}
-        {{ form.nombre(autocomplete="off") }}
-        {% if form.nombre.errors %}
-            {% for error in form.nombre.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-        {% endif %}
+<div class="hero">
+    <div class="container_form">
+        <div class="formation">
+            <div class="info_childs">
+                <h2>Bienvenido</h2>
+                <p>Para poder inscribirte a un taller
+                    antes necesitas crear una cuenta llenando
+                    los espacios con la informacion que se pide
+                </p>
+            </div>
+        </div>
+        <div class="form_formation">
+            <div class="form_information_ch">
+                <h2>Crea una cuenta</h2>
+                <div class="icons">
+                    <i class='bx bxl-google'></i>
+                </div>
+                <form class="form" method="post">
+                    {{ form.csrf_token }}
+                    <label>
+                        <i class='bx bx-user'></i>
+                        {{ form.nombre(autocomplete="off", placeholder="Nombre(s)") }}
+                        {% if form.nombre.errors %}
+                            {% for error in form.nombre.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </label>
+                    <label>
+                        <i class='bx bx-envelope'></i>
+                        {{ form.aPaterno(autocomplete="off", placeholder="Apellido paterno") }}
+                        {% if form.aPaterno.errors %}
+                            {% for error in form.aPaterno.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </label>
+                    <label>
+                        <i class='bx bx-envelope'></i>
+                        {{ form.aMaterno(autocomplete="off", placeholder="Apellido materno") }}
+                        {% if form.aMaterno.errors %}
+                            {% for error in form.aMaterno.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </label>
+                    <label>
+                        <i class='bx bx-envelope'></i>
+                        {{ form.correoE(autocomplete="off", placeholder="Correo electrónico") }}
+                        {% if form.correoE.errors %}
+                            {% for error in form.correoE.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </label>
+                    <label>
+                        <i class='bx bx-envelope'></i>
+                        {{ form.contrasenia(autocomplete="off", placeholder="Contraseña") }}
+                        {% if form.contrasenia.errors %}
+                            {% for error in form.contrasenia.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </label>
+                    <label>
+                        <i class='bx bxs-lock'></i>
+                        {{ form.contrasenia_confirm(autocomplete="off", placeholder="Confirma tu contraseña") }}
+                        {% if form.contrasenia_confirm.errors %}
+                            {% for error in form.contrasenia_confirm.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </label>
+                    <label>
+                        <i class='bx bxs-lock'></i>
+                        {{ form.telefono(autocomplete="off", placeholder="Telefono celular") }}
+                        {% if form.telefono.errors %}
+                            {% for error in form.telefono.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </label>
+                    <label>
+                        {{ form.edad.label }}
+                        {{ form.edad() }}
+                        {% if form.edad.errors %}
+                            {% for error in form.edad.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </label>
+                    <label>
+                        {{ form.rol.label }}
+                        {{ form.rol() }}
+                        {% if form.rol.errors %}
+                            {% for error in form.rol.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </label>
+                    {{ form.submit() }}
+                </form>
+            </div>
+        </div>
     </div>
-    <div>
-        {{ form.aPaterno.label }}
-        {{ form.aPaterno() }}
-        {% if form.aPaterno.errors %}
-            {% for error in form.aPaterno.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.aMaterno.label }}
-        {{ form.aMaterno() }}
-        {% if form.aMaterno.errors %}
-            {% for error in form.aMaterno.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.correoE.label }}
-        {{ form.correoE() }}
-        {% if form.correoE.errors %}
-            {% for error in form.correoE.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.contrasenia.label }}
-        {{ form.contrasenia() }}
-        {% if form.contrasenia.errors %}
-            {% for error in form.contrasenia.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.contrasenia_confirm.label }}
-        {{ form.contrasenia_confirm() }}
-        {% if form.contrasenia_confirm.errors %}
-            {% for error in form.contrasenia_confirm.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.telefono.label }}
-        {{ form.telefono() }}
-        {% if form.telefono.errors %}
-            {% for error in form.telefono.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.edad.label }}
-        {{ form.edad() }}
-        {% if form.edad.errors %}
-            {% for error in form.edad.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div>
-        {{ form.submit() }}
-    </div>
-</form>
+</div>
 {% endblock %}

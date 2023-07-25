@@ -5,10 +5,26 @@
 {% endblock %}
 
 {% block content %}
-    {% if 'correoE' in session %}
-        <h1>Bienvenido {{ session['nombre'] }} - {{ session['rol'] }}</h1>
-        <a href="{{ url_for('user.logout') }}">Salir de la sesion</a>
-    {% else %}
-        <h1>No usuario</h1>
-    {% endif %}
+
+    <section>
+        <div class="content_b">
+            <h1>Centro de Desarrollo Comunitario</h1>
+            <br>
+            <p>Hola!, quisiera hablarte un poco de lo que es el Centro de Desarrollo Comunitario (CDC) ubicado en Santa Maria Texcalac. Aquí se desarrollan varios
+                talleres para crear o impulsar talentos que existen dentro de nuestra comunidad.
+                Por esta razón te invitamos a que te inscribas en algún taller, recordandote que los talleres no tienen ningún costo y que esperamos disfrutes las clases.</p>
+                <br>
+            {% if 'id' in session %}
+                {% if session['rol'] == 3 %}
+                <a href="{{ url_for('user.admin') }}">Administrar</a>                    
+                {% elif session['rol'] == 2 %}
+                <a href="">Ver mis talleres</a>
+                {% elif session['rol'] == 1 %}
+                <a href="">Ver mis talleres</a>
+                {% endif %}
+            {% else %}
+            <a href="{{ url_for('user.register') }}">Registrarme</a>
+            {% endif %}
+        </div>
+    </section>
 {% endblock %}

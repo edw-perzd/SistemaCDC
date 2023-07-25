@@ -1,591 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&family=Outfit&display=swap');
+
 *{
-    margin: 0;
-    background: url('Iglesia.jpg') no-repeat;
-    padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
-}
-section{
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    width: 100%;
-    background: url('../images/Iglesia.jpg') no-repeat;
-    background-position: center;
-    background-size: cover;
-}
-.form-box{
-    position: relative;
-    width: 400px;
-    height: 450px;
-    background: transparent;
-    border: 2px solid rgb(255,255,255,0.5);
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-h2{
-    font-size: 2em;
-    color: #fff;
-    text-align: center;
-}
-.inputbox{
-    position: relative;
-    margin: 30px 0;
-    width: 310px;
-    border-bottom: 2px solid #fff;
-}
-.inputbox label{
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    transform: translateY(-50%);
-    color: rgb(248, 248, 255);
-    font-size: 1em;
-    pointer-events: none;
-    transition: .5s;
-}
-input:focus ~ label,
-input:valid ~ label{
-    top: -5px;
-}
-.inputbox .entrada{
-    width: 100%;
-    height: 50px;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 1em;
-    padding: 0 35px 0 5px;
-    color: #fff;
-}
-.inputbox ion-icon{
-    position: absolute;
-    right: 8px;
-    color: #fff;
-    font-size: 1.2em;
-    top: 20px;
-}
-.forget{
-    margin: -15px 0 15px;
-    font-size: .9em;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-}
-.forget label input{
-    margin-right: 3px;
-}
-.forget label a{
-    color: #e0dddd;
-    text-decoration: none;
-}
-.forget label a:hover{
-    text-decoration: underline;
-}
-.btn{
-    width: 100%;
-    height: 40px;
-    border-radius: 40px;
-    background: rgb(141, 141, 187);
-    border: none;
-    outline: none;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 600;
-}
-.registro{
-    font-size: .9em;
-    color: #fff;
-    text-align: center;
-    margin: 25px 0 10px;
-}
-.registro  a{
-    text-decoration: none;
-    color: #e0dddd;
-    font-weight: 600;
-}
-.registro a:hover{
-    text-decoration: underline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    font-family: 'Nunito Sans', sans-serif;
 }
 
 .hero{
-    width: 100%;
-    height: 100vh;
-    background-image: linear-gradient(rgba(12, 2, 51, 0.3), rgba(12, 2, 51, 0.3));
-    position: relative;
-    /*padding: 0 5%;*/
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100vh;
+    background-image: url(../images/mbr.jpg);
+    background-size: cover;
 }
 
-nav{
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 2px 3%;
+.container_form{
+    display: flex;
+    border-radius: 20px;
+    box-shadow: 0 5px 7px rgb(0, 0, 0, .1);
+    max-width: 900px;
+    transition: all 1s ease;
+    margin: 10px;
+    height: 600px;
+}
+
+.formation{
+    width: 40%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    background-color: #969696;
+    text-align: center;
+    background-color: #da88cc;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
 }
 
-nav .logo{
-    width: 80px;
-}
-
-nav ul li{
-    list-style: none;
-    display: inline-block;
-    margin-left: 40px;
-
-}
-
-nav ul li a{
-    text-decoration: none;
-    color: #fff;
-    font-size: 17px;
-}
-
-/* Codigo de Pablo */
-.container {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
- }
- 
- 
- 
- .row {
-    position: relative;
+.info_childs{
     width: 100%;
- }
- .row-padding {
-    padding: 1rem;
- }
- 
- 
-  
- .hide-text-logo{
-     text-indent: 100%;
-     white-space: nowrap;
-     overflow: hidden;
- }
-  
- .visually-hidden {
-     position: absolute;
-     width: 1px;
-     height: 1px;
-     margin: -1px;
-     padding: 0;
-     border: 0;
-     clip: rect(0 0 0 0);
-     overflow: hidden;
- }
- 
- .flex-box{
-       display: flex;
- }
- :root {
-   --blue:  #23b7e5;
-   --yellow:#fbc501;
-   --green: #27c24c;
-   --red:#f05050;
-   --alerta:#a94442;
-   --fondo:#f7f9fb;
- }
+    padding: 0 30px;
+}
 
-.header{
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
-    min-width: 100%;
+.info_childs h2{
+    font-size: 2.5rem;
+}
+
+.info_childs p{
+    margin: 15px 0;
+    color: aliceblue;
+}
+
+.form_formation{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    text-align: center;
+    background-color: azure;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.form_information_ch{
+    padding: 0 30px;
+}
+
+.form_information_ch h2{
+    color: #da88cc;
+    font-size: 2rem;
+}
+
+.icons{
+    margin: 15px 0;
+}
+
+.icons i{
+    border-radius: 50%;
+    padding: 15px;
+    cursor: pointer;
+    margin: 0 10px;
+    color: black;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 5px 7px rgb(0, 0, 0, .1);
+}
+
+.icons i:hover{
+    background-color: aliceblue;
+    color: #da88cc;
+}
+
+.form{
+    margin: 30px 0 0 0;
+}
+
+.form label{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border-radius: 20px;
+    padding: 0 10px;
+    background-color: azure;
+    box-shadow: 0 5px 7px rgb(0, 0, 0, .1);
+}
+
+.form label input{
+    width: 100%;
+    padding: 10px;
+    background-color: azure;
+    border: none;
+    outline: none;
+    color: black;
+}
+
+.form input[type="submit"]{
+    background-color: #da88cc;
+    color: black;
+    border-radius: 20px;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 5px 7px rgb(0, 0, 0, .1);
+}
+/** Inicio **/
+.content_b{
+    text-align: center;
+    background-image: url(../images/Iglesia.jpg);
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: 69%;
+    position: absolute;
+}
+
+.content_b a{
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
     color: #fff;
-    background-color: #23b7e5;
+    border: 2px solid #fff;
+    padding: 14px 70px;
+    border-radius: 50px;
+    margin-top: 20px;
 }
 
-    .logo a{
-       background: url("iconos/logo-1.png") no-repeat center;
-       padding: 2px 19px;
-    }
-   .nav a{
-     color: inherit;
-     font-size: 14px;
-   }
-    .main-nav a{
-      text-decoration: none;
-    }
-
-.nav-vertical ul{
-  padding-top:0.75rem;
-  padding-left: 0.8125rem;
-  list-style: none;
-}
-      .nav-vertical  i,.nav-vertical span{
-           vertical-align: middle;
-           display: inline-block;
-      }
-      .nav-vertical  i{
-        padding-right: 5px;
-      }
-      .nav-vertical > div{
-        background-color: #43525D;
-        color: #fff;
-        padding: 1.6rem 0.5rem;
-     }
-    .header .flex-box{
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    /*
-     * Formularios,label,txt
-     */
-
-.main-panel{
-  background-color: #fff;
-  flex-direction: row;
-  min-height: 90vh;
-}
-  .col-fixed{
-    background-color:#3A4750;
-    max-width: 153px;
-    min-width: 160px;
-  }
-  .nav-panel {
-  padding: 2rem;
-  }
-      .col-fixed li{
-        padding: 1rem 0;
-        color: #fff;
-      }
-     .col-fixed a,.nav-main a{
-          color: #cbd6e0;
-          text-decoration: none;
-          padding-bottom: 7px;
-          margin-right: 35px;
-     }
-
-.main-panel .col-90{
-  background-color: var(--fondo);
-}
-
-.data-print {
-  width: 95%;
-  min-width: 90%;
-  padding: 9px 5px;
-  background: #fff;
-  margin-top: 3rem;
-}
- .panel-opciones{
-   margin-bottom: 2rem;
- }
- .panel-opciones div:first-of-type{
-   border-bottom: 1px solid #b0c6ce;
-   padding-bottom: 15px;
- }
- .panel-opciones div:last-of-type{
-   color: var(--blue);
-   padding-top: 10px;
-   padding-left: 6px;
-  }
-
-
-
-
-.main-fieldset{
-  margin-top: 10%;
-  width: 560px;
- margin-left: auto;
- margin-right:auto;
- background-color: #fff;
- padding-left: 1rem;
- padding-right: 1rem;
-}
-
-.form-panel{
-  padding-bottom: 3rem;
-  line-height: 2;
-}
-
-.txt-form{
-   width: 100%;
-  border:1px solid rgba(150, 160, 165, 0.9);
-  border-radius: 3px;
-  padding:11px 12px 9px 8px;
-  outline: none;
-  font-size: 15px;
-  text-transform: capitalize;
-  color: #596569;
-
-}
-.txt-form--alert{
-   border:1px solid var(--red);
-}
-
-.txt-form:focus{
-box-shadow: inset 0 0 1px rgba(35, 183, 229, 0.61),0 0 3px rgba(37, 193, 242, 0.61);
-  border-color:var(--blue);
-}
-
-
-input[type="checkbox"]{
-  display: none;
-}
-
-
-
-.form-panel .label{
-  color: #000;
-  font-size: 14px;
-}
-
-.alert-msg{
-  display: block;
-  color: red;
-  font-size: small;
-  padding-top: 6px;
-  padding-left: 1px;
-  color: var(--red);
-}
-
-
-    .col-10{width: 100%;}
-    .col-20{width:100%;}
-    .col-30{width:100%;}
-
-    .col-40{width: 100%;}
-    .col-50{width: 100%;}
-    .col-60{width: 60%;}
-    .col-70{width: 70%;}
-    .col-80{width: 80%;}
-    .col-90{width: 90%;}
-
-
-@media (min-width:1024px) {
-  .col-10{max-width: 10%;}
-  .col-20{max-width: 20%;}
-  .col-30{max-width: 30%;}
-
-  .col-40{max-width: 40%;}
-  .col-50{max-width: 50%;}
-  .col-60{max-width: 60%;}
-  .col-70{width: 70%;}
-  .col-80{width: 80%;}
-  .col-90{width: 90%;}
-
-
+.content_b h1{
+    font-size: 100px;
+    color: #da88cc;
+    font-weight: 600;
 
 }
 
-
-
-/*--------------------------------------------------------------*/
-/*--------------------------------------------------------------*/
-/*--------------------------------------------------------------*/
-.btn-container{
-    padding: 3rem;
-}
-
-
-
-.btn,.btn-tables{
-  position: relative;
-  background-color: transparent;
-  outline: none;
-  cursor:pointer;
-  outline: none;
-  overflow: hidden;
-  transition: 1.1s background-color;
-  vertical-align: middle;
-}
-
-.btn{
-    border-radius: 500px;
-    padding: 4px 15px;
-}
-
-.btn-tables{
-   border: 0;
-}
-
-
-.btn:hover{
+.content_b p{
     color: #fff;
+    font-size: 18px;
 }
-       /*
-       *  efecto hover del boton,esta oculto
-       *  se activa al poner el mouse sobre el boton
-       */
-        .btn:after {
-            content: "";
-            position: absolute;
-            left: -100%;
-            z-index: -1;
-            width: 100%;
-            height: 100%;
-            padding: 1px;
-            border:1px solid;
-            border-radius: 500px;
-            top: 0;
-            transition: 0.5s all;
-        }
-
-       .btn:hover:after{
-            left: 0;
-       }
-
-       /*
-       *  Texto del boton
-       */
-      .btn > span {
-          vertical-align: super;
-          font-size: 1rem;
-          padding: 11px 9px  11px  16px;
-          display: inline-block;
-      }
-
-      /*
-      * Icono del boton
-      */
-      .btn > i{
-         font-size: 21px;
-         padding: 10px 5px 10px 6px;
-      }
-
-/*
-*  Personalizar cada boton
-*  usamos variables para los colores
-*/
-
-/*
-*****************Boton Enviar******************
-*/
-.btn--enviar{
-    color: var(--blue);
-    border:2px solid var(--blue);
+/** Finaliza Inicio **/
+.form input[type="submit"]:hover{
+    background-color: #963986;
 }
 
-.btn--enviar:hover,.btn--enviar:hover:after{
-     background-color: var(--blue);
+@media screen and (max-width:750px){
+    html{
+        font-size: 12px;
+    }
 }
 
-.btn--enviar:hover:after{
-     border-color: var(--blue);
-}
+@media screen and (max-width:580px){
+    html{
+        font-size: 10px;
+    }
 
+    .container_form{
+        flex-direction: column;
+        height: auto;
+    }
 
-/*
-*****************Boton Todos******************
-*/
+    .formation{
+        width: 100%;
+        padding: 20px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
 
-
-.btn--todos{
-   color: var(--yellow);
-   border:2px solid var(--yellow);
-}
-
-.btn--todos:hover,.btn--todos:hover:after{
-   background-color: var(--yellow);
-}
-
-.btn--todos:hover:after{
-   border-color: var(--yellow);
-}
-
-/*
-*****************Elminar******************
-*/
-
-.btn--eliminar{
-  color: var(--red);
-  border:2px solid var(--red);
-}
-
-.btn--eliminar:hover,.btn--eliminar:hover:after{
-  background-color:var(--red);
-}
-
-.btn--eliminar:hover:after{
-   border-color:var(--red);
-}
-
-
-/*
-*****************Boton Aceptarr******************
-*/
-
-.btn--aceptar{
-  color: var(--green);
-  border:2px solid var(--green);
-}
-.btn--aceptar:hover,.btn--aceptar:hover:after{
-  background-color: var(--green);
-}
-.btn--aceptar:hover:after{
-  border-color: var(--green);
-}
-/*
-*****************Boton Aceptarr******************
-*/
-.btn-tables--detalles{
-  color: var(--green);
-}
-.btn-tables--desactivar{
-  color: var(--red);
-}
-
-
-
-.table-responsive {
-  display: block;
-  width: 100%;
-  min-height: 0%;
-  overflow-x: auto;
-}
-
-
-table {
-  width: 100%;
-  max-width: 100%;
-  margin-bottom: 1rem;
-  font-size: 13px;
-}
-
-.table th, .table tr{
-  text-align: left;
-}
-
-.table .trabajando{
-  background-color:#dfeff5;
-}
-
-.table .desactivado{
-  background-color: #f5e0e7;
-}
-
-.table th,
-.table td {
-  padding: 0.75rem;
-  vertical-align: middle;
-  border-top: 1px solid #eceeef;
-}
-
-.table thead th {
-  vertical-align: bottom;
-  border-bottom: 2px solid #eceeef;
-  cursor: pointer;
-}
-
-.table tbody + tbody {
-  border-top: 2px solid #eceeef;
-}
-
-.table .table {
-  background-color: #fff;
+    .form_formation{
+        width: 100%;
+        padding: 20px;
+        border-bottom-left-radius: 20px;
+        border-top-right-radius: 0px;
+    }
 }

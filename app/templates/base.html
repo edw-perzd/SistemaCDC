@@ -3,38 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo_bln.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nvar.css') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/nav.js') }}"></script>
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    <div class="hero">
+    <header class="nvbar">
+        <div class="logo">
+            <a href="{{ url_for('home.home') }}"><img src="{{ url_for('static', filename='images/logo_bln.png') }}" alt="Logo_cdc"></a>
+        </div>
         <nav>
-            <img src="{{ url_for('static', filename='images/Logo-1.png') }}" class="logo">
-            <ul>
-                <li><a href="{{ url_for('home.home') }}">Inicio</a></li>
-                <li><a href="">Contacto</a></li>
-                <li><a href="">Faceboock</a></li>
-                {% if user %}
+            <ul class="nav_links">
+                <li><a href="https://www.facebook.com/texcalacunido">Facebook</a></li>
+                <li><a href="https://goo.gl/maps/odsUZ2KrJsEKM49NA">Encuentranos</a></li>
+                <li><a href="">Texcalac</a></li>
+                {% if 'id' in session %}
                     <li><a href="{{ url_for('user.logout') }}">Cerrar sesión</a></li>
-                    {% if user.rol == 1 %}
-                        <li>{{ user.nombre }} (Alumno)</li>
-                    {% elif user.rol == 2 %}    
-                        <li>{{ user.nombre }} (Profesor)</li>         
-                    {% else %}
-                        <li>{{ user.nombre }} (Administrador)</li>
-                    {% endif %}
+                </ul>
+            </nav>
+            <a href="#" class="btn"><button>{{ session['nombre'] }}</button></a>
                 {% else %}
-                    <li><a href="{{ url_for('user.login') }}">Iniciar Sesion</a></li>
-                    <li><a href="{{ url_for('user.admin') }}">Administración</a></li>
+                    <li><a href="{{ url_for('user.register') }}">Registrarme</a></li>
+                </ul>
+            </nav>
+            <a href="{{ url_for('user.login') }}" class="btn"><button>Iniciar sesión</button></a>
                 {% endif %}
-            </ul>
-        </nav>
-        <!--<div class="content">
-            <h1>Centro de Desarollo Comunitario</h1>
-            <a href="">Registrate</a>
-        </div>-->
-    </div>
+        <!--Esta parte es del script-->
+        <a onclick="openNav()" class="menu" href="#"><button>Menu</button></a>
+        
+        <div class="overlay" id="menu_rt">
+            <a onclick="closeNav()" class="close">&times;</a>
+            <div class="overlay_content">
+                <a href="https://www.facebook.com/texcalacunido">Facebook</a>
+                <a href="https://goo.gl/maps/odsUZ2KrJsEKM49NA">Encuentranos</a>
+                <a href="">Texcalac</a>
+                <a href="{{ url_for('user.login') }}">Iniciar sesión</a>
+                <a href="{{ url_for('user.register') }}">Registrarme</a>
+            </div>
+        </div>
+    </header>
         {% block content %}
         
         {% endblock %}

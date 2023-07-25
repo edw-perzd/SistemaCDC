@@ -6,7 +6,7 @@ mydb = get_connection()
 
 class Usuario(UserMixin):
 
-    def __init__(self, nombre, aPaterno, aMaterno, correoE, contrasenia, telefono, edad, rol='', id=None, fechaRegistro='', id_rol=''):
+    def __init__(self, nombre, aPaterno, aMaterno, correoE, contrasenia, telefono, edad, rol='', id=None, fechaRegistro=''):
         self.id = id
         self.nombre = nombre
         self.aPaterno = aPaterno
@@ -21,21 +21,38 @@ class Usuario(UserMixin):
     def guardar(self):
         # Create a New Object in DB
         if self.id is None:
-            with mydb.cursor() as cursor:
-                sql = "INSERT INTO alumnos(nombre_alumno, aPaterno_alumno, aMaterno_alumno, correoE_alumno, contrasenia_alumno, telefono_alumno, edad_alumno, fechaRegistro_alumno) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"
-                val = (self.nombre, self.aPaterno, self.aMaterno, self.correoE, self.contrasenia, self.telefono, self.edad, self.fechaRegistro)
-                cursor.execute(sql, val)
-                mydb.commit()
-                self.id = cursor.lastrowid
-                return self.id
+            if self.rol == '1':
+                with mydb.cursor() as cursor:
+                    sql = "INSERT INTO alumnos(nombre_alumno, aPaterno_alumno, aMaterno_alumno, correoE_alumno, contrasenia_alumno, telefono_alumno, edad_alumno, fechaRegistro_alumno) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"
+                    val = (self.nombre, self.aPaterno, self.aMaterno, self.correoE, self.contrasenia, self.telefono, self.edad, self.fechaRegistro)
+                    cursor.execute(sql, val)
+                    mydb.commit()
+                    self.id = cursor.lastrowid
+                    return self.id
+            elif self.rol == '2':
+                with mydb.cursor() as cursor:
+                    sql = "INSERT INTO profesores(nombre_profesor, aPaterno_profesor, aMaterno_profesor, correoE_profesor, contrasenia_profesor, telefono_profesor, edad_profesor, fechaRegistro_profesor) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"
+                    val = (self.nombre, self.aPaterno, self.aMaterno, self.correoE, self.contrasenia, self.telefono, self.edad, self.fechaRegistro)
+                    cursor.execute(sql, val)
+                    mydb.commit()
+                    self.id = cursor.lastrowid
+                    return self.id
         # Update an Object
         else:
-            with mydb.cursor() as cursor:
-                sql = "UPDATE alumnos SET nombre_alumno = %s, aPaterno_alumno = %s, aMaterno_alumno = %s, correoE_alumno = %s, contrasenia_alumno = %s, telefono_alumno = %s, edad_alumno = %d, fechaRegistro_alumno = %s WHERE id_alumno = %s"
-                val = (self.nombre, self.aPaterno, self.aMaterno, self.correoE, self.contrasenia, self.telefono, self.edad, self.fechaRegistro, self.id)
-                cursor.execute(sql, val)
-                mydb.commit()
-                return self.id
+            if self.rol == '1':
+                with mydb.cursor() as cursor:
+                    sql = "UPDATE alumnos SET nombre_alumno = %s, aPaterno_alumno = %s, aMaterno_alumno = %s, correoE_alumno = %s, contrasenia_alumno = %s, telefono_alumno = %s, edad_alumno = %d WHERE id_alumno = %s"
+                    val = (self.nombre, self.aPaterno, self.aMaterno, self.correoE, self.contrasenia, self.telefono, self.edad, self.id)
+                    cursor.execute(sql, val)
+                    mydb.commit()
+                    return self.id
+            elif self.rol == '2':
+                with mydb.cursor() as cursor:
+                    sql = "UPDATE profesores SET nombre_profesor = %s, aPaterno_profesor = %s, aMaterno_profesor = %s, correoE_profesor = %s, contrasenia_profesor = %s, telefono_profesor = %s, edad_profesor = %d WHERE id_profesor = %s"
+                    val = (self.nombre, self.aPaterno, self.aMaterno, self.correoE, self.contrasenia, self.telefono, self.edad, self.id)
+                    cursor.execute(sql, val)
+                    mydb.commit()
+                    return self.id
             
     def eliminar(self):
         with mydb.cursor() as cursor:
