@@ -5,6 +5,7 @@ from flask_wtf.csrf import CSRFProtect
 # Import from Views
 from views.home_views import home_views
 from views.users_views import user_views
+from views.admin_views import admin_views
 from views.error_views import error_views
 
 app = Flask(__name__)
@@ -15,6 +16,7 @@ csrf = CSRFProtect()
 
 app.register_blueprint(home_views)
 app.register_blueprint(user_views)
+app.register_blueprint(admin_views)
 app.register_blueprint(error_views)
 
 

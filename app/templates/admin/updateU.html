@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Registrar alumno
+{% endblock %}
+
+{% block content %}
+    <div class="main-panel flex-box">
+        <div class="col-10 col-fixed">
+            <div class="nav nav-vertical">
+              <div class="">
+                <h4 class="h4">Panel administrador</h4>
+              </div>
+                <ul>
+                <li><a onclick="mostrarAlm()" class="a" href="{{ url_for('admin.admin') }}"><i class="material-icons">&#xe80c;</i> <span>Alumnos</span></a></li>
+                <li><a onclick="mostrarProf()" class="a" href="{{ url_for('admin.admin') }}"><i class="material-icons">&#xeb44;</i> <span>Profesores</span></a></li>
+                <li><a onclick="mostrarTal()" class="a" href="{{ url_for('admin.admin') }}"><i class="material-icons">&#xe7ee;</i> <span>Talleres</span></a></li>
+                <!--<li><a onclick="mostrarAdmin()" class="a" href="{{ url_for('admin.admin') }}"><i class="material-icons"></i> <span>Administradores</span></a></li>-->
+                </ul>
+            </div>
+        </div>
+        <!---->
+        <div class="col-90">
+            <div class="data-print center">
+                <div class="left row-padding">
+                    <center><h1 class="h1">Actualizar usuario {% if usuario.rol == 2 %}
+                        (Profesor) {% elif usuario.rol == 1 %} (Alumno)
+                    {% endif %}</h1></center>
+                    <form class="cbp-mc-form" method="POST">
+                        {{ form.csrf_token }}
+                        <div class="cbp-mc-column">
+                            {{ form.nombre.label }}
+                            {{ form.nombre(autocomplete="off", placeholder="Juan") }}
+                            {% if form.nombre.errors %}
+                                {% for error in form.nombre.errors %}
+                                <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                            {{ form.aPaterno.label }}
+                            {{ form.aPaterno(autocomplete="off", placeholder="Perez") }}
+                            {% if form.aPaterno.errors %}
+                                {% for error in form.aPaterno.errors %}
+                                <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div> 
+                        <div class="cbp-mc-column">
+                            {{ form.aMaterno.label }}
+                            {{ form.aMaterno(autocomplete="off", placeholder="P.") }}
+                            {% if form.aMaterno.errors %}
+                                {% for error in form.aMaterno.errors %}
+                                <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                            {{ form.correoE.label }}
+                            {{ form.correoE(autocomplete="off", placeholder="cdctexcalac2022@gmail.com") }}
+                            {% if form.correoE.errors %}
+                                {% for error in form.correoE.errors %}
+                                <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="cbp-mc-column">
+                            {{ form.telefono.label }}
+                            {{ form.telefono(autocomplete="off", placeholder="241-118-2658") }}
+                            {% if form.telefono.errors %}
+                                {% for error in form.telefono.errors %}
+                                <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                            {{ form.edad.label }}
+                            {{ form.edad() }}
+                            {% if form.edad.errors %}
+                                {% for error in form.edad.errors %}
+                                <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="cbp-mc-submit-wrap">
+                            {{ form.submit(class="cbp-mc-submit") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

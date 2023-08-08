@@ -1,108 +1,40 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Administración
+    Administración CDC    
 {% endblock %}
 
 {% block content %}
-<main>
+<style>
+  footer{
+      margin-top: 0;
+  }
+</style>
+<main class="madmin">
     <!-- cuerpo principal de la pagina-->
-<div class="main-panel flex-box">
-      <div class="col-10 col-fixed">
+  <div class="main-panel flex-box">
+    <div class="col-30 col-fixed">
             <div class="nav nav-vertical">
               <div class="">
-                <h4>Panel administrador</h4>
+                <h4 class="h4">Panel administrador</h4>
               </div>
-
                 <ul>
-                <li><a href="#"><i class="material-icons">&#xe80c;</i> <span>Alumnos</span></a></li>
-                <li><a href="#"><i class="material-icons">&#xe7ee;</i> <span>Talleres</span></a></li>
-                <li><a href="#"><i class="material-icons">&#xeb44;</i> <span>Docentes</span></a></li>
-                <li><a href="#"><i class="material-icons">perm_identity</i> <span>Administradores</span></a></li>
+                <li><a class="a" href="{{ url_for('admin.adminA') }}"><i class="material-icons">&#xe80c;</i> <span>Alumnos</span></a></li>
+                <li><a class="a secselect" href="{{ url_for('admin.adminP') }}"><i class="material-icons">&#xeb44;</i> <span>Profesores</span></a></li>
+                <li><a class="a" href="{{ url_for('admin.adminT') }}"><i class="material-icons">&#xe7ee;</i> <span>Talleres</span></a></li>
+                <!--<li><a onclick="mostrarAdmin()" class="a" href="#admins"><i class="material-icons"></i><span>Administradores</span></a></li>-->
                 </ul>
-              </div>
-      </div>
-      <div class="col-90">
-          <div class="data-print center">
-              <div class="left row-padding">
-                  <h1>Alumnos</h1>
-                  <p>Listado de Alumnos</p>
-              </div>
-
-             <div class="panel-opciones">
-               <div class="flex-box">
-               <span>
-                 <select class="txt-form txt-form--option" name="">
-                     <option value="-1" disabled selected hidden>Seleccione Taller</option>
-                     <option value="">Educación Basica</option>
-                     <option value="">Educación Familiar</option>
-                     <option value="">Agropecuarias</option>
-                     <option value="">Herrería y Balconería</option>
-                     <option value="">Cultura de Belleza</option>
-                     <option value="">Musica</option>
-                     <option value="">Carpintería</option>
-                   </select>
-               </span>
-               <span>
-                 <input class="txt-form" type="text" name="" placeholder="Busqueda">
-               </span>
-
-             </div>
-
-              <div class="left">
-                 Resultados.
-              </div>
-
-             </div>
-
-              <div class="table-responsive">
-      <table class="table">
-        <thead>
-            <tr>
-              <th>ID</th>
-               <th>Nombre</th>
-               <th>Apellido Paterno</th>
-               <th>Apellido Materno</th>
-               <th>Correo</th>
-               <th>Telefono</th>
-               <th>Edad</th>
-               <th>Fecha de registro</th>
-               <th>Accion</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
-                
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.nombre }}</td>
-                <td>{{ user.aPaterno }}</td>
-                <td>{{ user.aMaterno }}</td>
-                <td>{{ user.correoE }}</td>
-                <td>{{ user.telefono }}</td>
-                <td>{{ user.edad }}</td>
-                <td>{{ user.fechaRegistro }}</td>
-                <td> <button type="button" class="btn-tables btn-tables--Editar"><i class="material-icons">build</i></button>
-                    <button type="button" class="btn-tables btn-tables--Eliminar"><i class="material-icons">delete</i></button>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-      </table>
+            </div>
     </div>
-
-
-
-       </div>
-     </div>
-</div>
-
-
-
-
-
-
-
+    <div class="col-90">
+        <div class="data-print center">
+            <div class="left row-padding">
+                  <h1 class="h1">Hola de nuevo.</h1>
+                  <h1 class="h1">Selecciona la sección que deseas consultar</h1>
+                  <p class="p"></p>
+            </div>
+        </div>
+    </div>
+  </div>
 </main>
 {% endblock %}

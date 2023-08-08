@@ -4,53 +4,73 @@
 {% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/stylesold.css') }}">
-    <section>
-        <div class="form-box">
-            <div class="form_value">
-                {% with messages = get_flashed_messages() %}
-                    {% if messages%}
-                        {% for message in messages %}
-                            <h2>{{ message }}</h2>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
-                <form action="/login" method="POST">
+<!--Alertas-->
+{% with messages = get_flashed_messages() %}
+    {% if messages%}
+        {% for message in messages %}
+        <div class="alert-container">
+            <div class="alert">
+              <div class="alert-text">{{ message }}</div>
+              <button class="alert-button">Cerrar</button>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<script>
+    window.addEventListener('DOMContentLoaded', function(){
+      var alertElement = document.querySelector('.alert');
+      alertElement.style.animationDelay = '1s';
+    });
+</script>
+<!----------->
+    <!---->
+<div class="hero">
+    <div class="container_login">
+        <div class="formation">
+            <div class="info_childs">
+                <h2>Iniciar Sesión</h2>
+                <p>
+                </p>
+            </div>
+        </div>
+        <div class="form_formation">
+            <div class="form_information_ch">
+                <h2>Inicio de Sesión</h2>
+                <div class="icons">
+                    <i class='bx bxl-google'></i>
+                </div>
+                <form class="form" method="POST">
                     {{ form.csrf_token }}
-                    <h2>Inicio de Sesión</h2>
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                    <div class="inputbox">
-                        <ion-icon name="mail-outline"></ion-icon>
-                        {{ form.correoE.label }}
-                        {{ form.correoE(class="entrada") }}
+                    <label>
+                        <i class='bx bx-envelope'></i>
+                        {{ form.correoE(autocomplete="off", placeholder="Correo electrónico") }}
                         {% if form.correoE.errors %}
                             {% for error in form.correoE.errors %}
                                 <p>{{ error }}</p>
                             {% endfor %}
                         {% endif %}
-                    </div>
-                    <div class="inputbox">
-                        <ion-icon name="lock-closed-outline"></ion-icon>
-                        {{ form.contrasenia.label }}
-                        {{ form.contrasenia(class="entrada") }}
+                    </label>
+                    <label>
+                        <i class='bx bx-lock'></i>
+                        {{ form.contrasenia(autocomplete="off", placeholder="Contraseña") }}
                         {% if form.contrasenia.errors %}
                             {% for error in form.contrasenia.errors %}
                                 <p>{{ error }}</p>
                             {% endfor %}
                         {% endif %}
-                    </div>
-                    <div class="forget">
-                        <label for=""><a href="">Olvide mi Contraseña</a></label>
-                    </div>
-                    {{ form.submit(class="btn2") }}
-                    <div class="registro">
-                        <p>No tienes una cuenta? </p>
-                        <a href="">Registrate</a>
-                    </div>
+                    </label>
+                    {{ form.submit() }}
                 </form>
+                <br>
+                <a href="#" class="link_form">Olvide mi contraseña</a>
+                <p class="text_form">¿No tienes cuenta?</p>
+                <a href="#" class="link_form">Registrate</a>
             </div>
         </div>
-    </section>
+    </div>
+</div>
     <!--<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>-->
 {% endblock %}

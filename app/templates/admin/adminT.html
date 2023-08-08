@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Talleres
+{% endblock %}
+
+{% block content %}
+<style>
+    footer{
+        margin-top: 0;
+    }
+  </style>
+<main class="madmin">
+    <div class="main-panel flex-box">
+        <div class="col-10 col-fixed">
+            <div class="nav nav-vertical">
+            <div class="">
+                <h4 class="h4">Panel administrador</h4>
+            </div>
+                <ul>
+                <li><a class="a" href="{{ url_for('admin.adminA') }}"><i class="material-icons">&#xe80c;</i> <span>Alumnos</span></a></li>
+                <li><a class="a" href="{{ url_for('admin.adminP') }}"><i class="material-icons">&#xeb44;</i> <span>Profesores</span></a></li>
+                <li><a class="a secselect" href="{{ url_for('admin.adminT') }}"><i class="material-icons">&#xe7ee;</i> <span>Talleres</span></a></li>
+                <li><a class="a" href="{{ url_for('admin.solicitudes') }}"><i class="material-icons">history_edu</i><span>Solicitudes</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-90">
+            <div class="tal">
+                <div class="data-print center">
+                    <div class="left row-padding">
+                        <h1 class="h1">Talleres del CDC</h1>
+                        <p class="p">Listado de talleres</p>
+                        <div class="flex-box">
+                            <a class="button h3">Agregar &#43;</a>
+                        </div>
+                    </div>
+                    <div class="panel-opciones">
+                    <div class="flex-box"> 
+                        <span>
+                        <input class="in txt-form" type="text" name="" placeholder="Busqueda">
+                        </span>
+                    </div>
+                    <div class="left">
+                        Resultados.
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th>ID</th>
+                            <th>Taller</th>
+                            <th>Descripción de taller</th>
+                            <th>Categoria</th>
+                            <th>Profesor a cargo</th>
+                            <th>Fecha de registro</th>
+                            <th>Acción</th>
+        
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for taller in talleres %}
+                        <tr>
+                                <td>{{ taller.id }}</td>
+                                <td>{{ taller.nombre }}</td>
+                                <td>{{ taller.descrip }}</td>
+                                <td>{{ taller.categoria }}</td>
+                                <td>{{ taller.id_profesor }}</td>
+                                <td>{{ taller.fechaRegistro }}</td>
+                                <td> 
+                                <button type="button" class="botn-tables botn-tables--Editar"><i class="material-icons">build</i></button>
+                                <form action="{{ url_for('admin.delete_tal', id=taller.id) }}" method="post">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="botn-tables botn-tables--Eliminar" onclick="return confirm('Seguro?')">
+                                    <i class="material-icons">delete</i>
+                                    </button>
+                                </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>              
+            </div>
+            <div class="numpages">
+                {% for i in range(pages) %}
+                  <a href="{{ url_for('admin.adminT', page=(i + 1)) }}">{{ i + 1 }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

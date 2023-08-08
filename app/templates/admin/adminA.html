@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Administración
+{% endblock %}
+
+{% block content %}
+<style>
+  footer{
+      margin-top: 0;
+  }
+</style>
+<main class="madmin">
+  <!-- cuerpo principal de la pagina-->
+<div class="main-panel flex-box">
+  <div class="col-10 col-fixed">
+          <div class="nav nav-vertical">
+            <div class="">
+              <h4 class="h4">Panel administrador</h4>
+            </div>
+              <ul>
+              <li><a class="a secselect" href="{{ url_for('admin.adminA') }}"><i class="material-icons">&#xe80c;</i> <span>Alumnos</span></a></li>
+              <li><a class="a" href="{{ url_for('admin.adminP') }}"><i class="material-icons">&#xeb44;</i> <span>Profesores</span></a></li>
+              <li><a class="a" href="{{ url_for('admin.adminT') }}"><i class="material-icons">&#xe7ee;</i> <span>Talleres</span></a></li>
+              <li><a class="a" href="{{ url_for('admin.solicitudes') }}"><i class="material-icons">history_edu</i><span>Solicitudes</span></a></li>
+              </ul>
+          </div>
+  </div>
+    
+  <div class="col-90">   
+      <!---->
+      <div id="alum">
+        <div class="data-print center">
+          <div class="left row-padding">
+                <h1 class="h1">Alumnos de taller</h1>
+                <p class="p">Listado de alumnos</p>
+                <div class="flex-box">
+                  <a href="{{ url_for('admin.crear_usuario') }}" class="button h3">Agregar &#43;</a>
+                </div>
+          </div>
+          <div class="panel-opciones">
+             <div class="flex-box"> 
+              <span>
+                <input class="in txt-form" type="text" name="" placeholder="Busqueda">
+              </span>
+             </div>
+             <div class="left">
+               Resultados.
+              </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre(s)</th>
+                    <th>Apellido paterno</th>
+                    <th>Apellido materno</th>
+                    <th>Taller</th>
+                    <th>Correo electrónico</th>
+                    <th>Teléfono</th>
+                    <th>Edad</th>
+                    <th>Fecha de registro</th>
+                    <th>Acción</th>
+
+                  </tr>
+              </thead>
+              <tbody>
+                {% for alumno in alumnos %}
+                <tr>
+                      <td>{{ alumno.id }}</td>
+                      <td>{{ alumno.nombre }}</td>
+                      <td>{{ alumno.aPaterno }}</td>
+                      <td>{{ alumno.aMaterno }}</td>
+                      <td>
+                        {% for taller in talleres %}
+                        {% if alumno.id == taller.id_alumno %}
+                          {{ taller.nombre_taller }}
+                        {% endif %}
+                        {% endfor %}
+                      </td>
+                      <td>{{ alumno.correoE }}</td>
+                      <td>{{ alumno.telefono }}</td>
+                      <td>{{ alumno.edad }}</td>
+                      <th>{{ alumno.fechaRegistro }}</th>
+                      <td> 
+                        <a href="{{ url_for('admin.actualizar_usuario', id=alumno.id, rol=alumno.rol) }}"><button type="button" class="botn-tables botn-tables--Editar"><i class="material-icons">build</i></button></a>
+                        <form action="{{ url_for('admin.delete', id=alumno.id, rol=alumno.rol) }}" method="POST">
+                          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                          <button type="submit" class="botn-tables botn-tables--Eliminar" onclick="return confirm('Seguro?')">
+                            <i class="material-icons">delete</i>
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="numpages">
+        {% for i in range(pages) %}
+        <a href="{{ url_for('admin.adminA', page=(i + 1)) }}">{{ i + 1 }}</a>
+        {% endfor %}
+      </div>
+  </div>
+</div>
+
+</main>
+{% endblock %}

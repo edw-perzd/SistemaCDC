@@ -14,13 +14,16 @@
                 talleres para crear o impulsar talentos que existen dentro de nuestra comunidad.
                 Por esta razón te invitamos a que te inscribas en algún taller, recordandote que los talleres no tienen ningún costo y que esperamos disfrutes las clases.</p>
                 <br>
+                <h2>Nuestra misión: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, reprehenderit.</h2>
+                <h2>Nuestra vision: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione, incidunt!</h2>
+                <br>
             {% if 'id' in session %}
                 {% if session['rol'] == 3 %}
-                <a href="{{ url_for('user.admin') }}">Administrar</a>                    
+                <a href="{{ url_for('admin.admin') }}">Administrar</a>                    
                 {% elif session['rol'] == 2 %}
                 <a href="">Ver mis talleres</a>
                 {% elif session['rol'] == 1 %}
-                <a href="">Ver mis talleres</a>
+                <a href="{{ url_for('user.mytaller') }}">Ver mis talleres</a>
                 {% endif %}
             {% else %}
             <a href="{{ url_for('user.register') }}">Registrarme</a>

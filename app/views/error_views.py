@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, url_for
 
 error_views = Blueprint('error', __name__)
 
@@ -8,4 +8,4 @@ def page_not_found(error):
 
 @error_views.app_errorhandler(401)
 def unauthorized(error):
-    return render_template('error/401.html')
+    return redirect(url_for('user.login'))

@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, render_template, url_for, flash, abort, session
 
-from models.usuarios import Usuario
+from models.usuarios import Usuario, Toma
 
 from forms.usuarios_forms import LoginForm, RegisterForm
 
@@ -50,13 +50,21 @@ def login():
             return redirect(url_for('home.home'))
     return render_template('usuarios/Login.html', form=form)
 
-@user_views.route("/admin")
-def admin():
-    if session.get('rol') == 3:
-        users = Usuario.get_all()
-        return render_template('admin/admin.html', users= users)
+@user_views.route("/home/mytaller")
+def mytaller():
+    if session.get('rol') != 3:
+        if session.get('rol') == 2 or session.get('rol') == 1:
+            correoE = session.get('correoE')
+            talleres = Toma.get_talleres_by_correo(correoE)
+            return render_template('usuarios/talleres.html', talleres=talleres)
+        else:
+            abort(401)
     else:
         abort(401)
+
+@user_views.route("/home/info_texcalac")
+def info_texcalac():
+    return render_template('usuarios/infoTexca.html')
 
 @user_views.route("/logout")
 def logout():

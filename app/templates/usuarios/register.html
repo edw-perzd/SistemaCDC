@@ -4,8 +4,13 @@
 {% endblock %}
 
 {% block content %}
+<style>
+    footer{
+        margin-top: 850px;
+    }
+</style>
 <div class="hero">
-    <div class="container_form">
+    <div class="container_register">
         <div class="formation">
             <div class="info_childs">
                 <h2>Bienvenido</h2>
@@ -33,7 +38,7 @@
                         {% endif %}
                     </label>
                     <label>
-                        <i class='bx bx-envelope'></i>
+                        <i class='bx bx-user'></i>
                         {{ form.aPaterno(autocomplete="off", placeholder="Apellido paterno") }}
                         {% if form.aPaterno.errors %}
                             {% for error in form.aPaterno.errors %}
@@ -42,7 +47,7 @@
                         {% endif %}
                     </label>
                     <label>
-                        <i class='bx bx-envelope'></i>
+                        <i class='bx bx-user'></i>
                         {{ form.aMaterno(autocomplete="off", placeholder="Apellido materno") }}
                         {% if form.aMaterno.errors %}
                             {% for error in form.aMaterno.errors %}
@@ -60,7 +65,7 @@
                         {% endif %}
                     </label>
                     <label>
-                        <i class='bx bx-envelope'></i>
+                        <i class='bx bx-lock'></i>
                         {{ form.contrasenia(autocomplete="off", placeholder="Contraseña") }}
                         {% if form.contrasenia.errors %}
                             {% for error in form.contrasenia.errors %}
@@ -78,7 +83,7 @@
                         {% endif %}
                     </label>
                     <label>
-                        <i class='bx bxs-lock'></i>
+                        <i class='bx bxs-phone'></i>
                         {{ form.telefono(autocomplete="off", placeholder="Telefono celular") }}
                         {% if form.telefono.errors %}
                             {% for error in form.telefono.errors %}

@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo_bln.png') }}">
+    <!--Estilos-->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/nvar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/alerts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+    <!--Enlaces-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!--Scripts-->
     <script type="text/javascript" src="{{ url_for('static', filename='js/nav.js') }}"></script>
     <title>{% block title %}{% endblock %}</title>
 </head>
@@ -17,9 +23,10 @@
         </div>
         <nav>
             <ul class="nav_links">
-                <li><a href="https://www.facebook.com/texcalacunido">Facebook</a></li>
+                <li><a href="{{ url_for('home.home') }}">Inicio</a></li>
                 <li><a href="https://goo.gl/maps/odsUZ2KrJsEKM49NA">Encuentranos</a></li>
-                <li><a href="">Texcalac</a></li>
+                <li><a href="{{ url_for('user.info_texcalac') }}">¿Sabias que?</a></li>
+                <li><a href="#">Nuestros talleres</a></li>
                 {% if 'id' in session %}
                     <li><a href="{{ url_for('user.logout') }}">Cerrar sesión</a></li>
                 </ul>
@@ -48,8 +55,23 @@
         {% block content %}
         
         {% endblock %}
-        
-
+    <footer>
+        <div class="footer_contenido">
+            <h3>CDC</h3>
+            <p>
+                Todos los derechos son reservados ajenos a cualquier 
+                partido político 
+            </p>
+            <ul class="iconosS">
+                <li><a href=""><i class='bx bx-envelope'></i></a></li>
+                <li><a href="https://www.facebook.com/texcalacunido"><i class='bx bxl-facebook' ></i></a></li>
+                <li><a href=""><i class='bx bxl-instagram' ></i></a></li>
+            </ul>
+        </div>
+        <div class="footer_dr">
+            <p>Copyright &copy; 2023 Centro de Desarrollo Comunitario. designed by <span>PayCorp</span></p>
+        </div>
+    </footer>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

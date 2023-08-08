@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Talleres
+{% endblock %}
+
+{% block content %}
+<style>
+    body{
+        background-image: url(../../static/images/fondo.jpg);
+        background-size: cover;
+    }
+    footer{
+        margin-top: 100px;
+    }
+</style>
+<div class="body">
+{% if talleres %}
+    {% for taller in talleres %}
+        <div class="slide-container">
+            <div class="slide-content">
+                <div class="card-wrapper">
+                    <div class="card">
+                        <div class="image-content">
+                            <span class="overlay"></span>
+                            <div class="card-image">
+                                <img src="{{ url_for('static', filename='/images/el-box-deporte-mas-complejo.jpg') }}" alt="" class="card-img">
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h2 class="nombre">{{ taller.nombre_taller }}</h2>
+                            <p class="descrip">
+                                {{ taller.descrip_taller }}
+                            </p>
+                            <h2 class="nombre">{{ taller.categoria_taller }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="slide-container">
+        <div class="slide-content">
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="image-content">
+                        <span class="overlay"></span>
+                        <div class="card-image">
+                            <img src="{{ url_for('static', filename='/images/bx-plus-circle.svg') }}" alt="" class="card-img">
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <button class="inscripcion">Inscribirme a otro taller</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="slide-container">
+        <div class="slide-content">
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="image-content">
+                        <span class="overlay"></span>
+                        <div class="card-image">
+                            <img src="{{ url_for('static', filename='/images/bx-plus-circle.svg') }}" alt="" class="card-img">
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <button class="inscripcion">Incribirme a un taller</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+</div>
+<!--<div class="body">
+    <div class="slide-container">
+        <div class="slide-content">
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="image-content">
+                        <span class="overlay"></span>
+                        <div class="card-image">
+                            <img src="{{ url_for('static', filename='/images/el-box-deporte-mas-complejo.jpg') }}" alt="" class="card-img">
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h2 class="nombre">Box</h2>
+                        <p class="descrip">
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dicta molestias fugit veniam pariatur dolore iure eos impedit ratione culpa.
+                        </p>
+                        <button class="inscripcion">Inscribirme</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-container">
+        <div class="slide-content">
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="image-content">
+                        <span class="overlay"></span>
+                        <div class="card-image">
+                            <img src="{{ url_for('static', filename='/images/el-box-deporte-mas-complejo.jpg') }}" alt="" class="card-img">
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h2 class="nombre">Box</h2>
+                        <p class="descrip">
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dicta molestias fugit veniam pariatur dolore iure eos impedit ratione culpa.
+                        </p>
+                        <button class="inscripcion">Inscribirme</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-container">
+        <div class="slide-content">
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="image-content">
+                        <span class="overlay"></span>
+                        <div class="card-image">
+                            <img src="{{ url_for('static', filename='/images/bx-plus-circle.svg') }}" alt="" class="card-img">
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <button class="inscripcion">Más</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+{% endblock %}
