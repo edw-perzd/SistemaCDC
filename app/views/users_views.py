@@ -2,7 +2,7 @@ from flask import Blueprint, redirect, render_template, url_for, flash, abort, s
 
 from models.usuarios import Usuario, Toma
 
-from forms.usuarios_forms import LoginForm, RegisterForm
+from forms.usuarios_forms import LoginForm, RegisterForm, ValidarInfo
 
 #from utils.file_handler import save_image
 
@@ -57,6 +57,19 @@ def mytaller():
             correoE = session.get('correoE')
             talleres = Toma.get_talleres_by_correo(correoE)
             return render_template('usuarios/talleres.html', talleres=talleres)
+        else:
+            abort(401)
+    else:
+        abort(401)
+
+@user_views.route("/home/mytaller/<int:id>/valid", methods=['POST', 'GET'])
+def validinfo():
+    if session.get('rol') != 3:
+        if session.get('rol') == 2 or session.get('rol') == 1:
+            form = ValidarInfo()
+            correoE = session.get('correoE')
+            talleres = Toma.get_talleres_by_correo(correoE)
+            return render_template('usuarios/validform.html', form=form)
         else:
             abort(401)
     else:

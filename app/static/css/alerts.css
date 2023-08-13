@@ -1,3 +1,12 @@
+.alert-log{
+  margin: 15px 0;
+  padding: 10px;
+  align-items: center;
+  text-align: center;
+  color: black;
+  border-radius: 10px;
+  background-color: #485ec2;
+}
 .alert-container {
     position: absolute;
     display: flex;

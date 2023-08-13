@@ -10,6 +10,16 @@
         margin-top: 0;
     }
   </style>
+{% with messages = get_flashed_messages() %}
+  {% if messages%}
+      {% for message in messages %}
+        <script>
+            alert('{{ message }}')
+        </script>
+      {% endfor %}
+  {% endif %}
+{% endwith %}
+
 <main class="madmin">
     <div class="main-panel flex-box">
         <div class="col-10 col-fixed">
@@ -32,13 +42,31 @@
                         <h1 class="h1">Talleres del CDC</h1>
                         <p class="p">Listado de talleres</p>
                         <div class="flex-box">
-                            <a class="button h3">Agregar &#43;</a>
+                            <a href="{{ url_for('admin.crearTaller') }}" class="button h3">Agregar &#43;</a>
                         </div>
                     </div>
                     <div class="panel-opciones">
                     <div class="flex-box"> 
                         <span>
-                        <input class="in txt-form" type="text" name="" placeholder="Busqueda">
+                            <form method="post">
+                                {{ form.csrf_token }}
+                                {{ form.tipo.label }}
+                                {{ form.tipo(class="in txt-form") }}
+                                {% if form.tipo.errors %}
+                                    {% for error in form.tipo.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                {% endif %}
+                                {{ form.texto.label }}
+                                {{ form.texto(class="in txt-form", placeholder="Búsqueda", autocomplete="off") }}
+                                {% if form.texto.errors %}
+                                    {% for error in form.texto.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                {% endif %}
+              
+                                {{ form.submit(class="button h4") }}
+                              </form>
                         </span>
                     </div>
                     <div class="left">
@@ -66,10 +94,16 @@
                                 <td>{{ taller.nombre }}</td>
                                 <td>{{ taller.descrip }}</td>
                                 <td>{{ taller.categoria }}</td>
-                                <td>{{ taller.id_profesor }}</td>
+                                <td>
+                                    {% for profe in profesores %}
+                                        {% if profe.id == taller.id_profesor %}
+                                            {{ profe.nombre }} {{ profe.aPaterno }} {{ profe.aMaterno }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
                                 <td>{{ taller.fechaRegistro }}</td>
                                 <td> 
-                                <button type="button" class="botn-tables botn-tables--Editar"><i class="material-icons">build</i></button>
+                                    <a href="{{ url_for('admin.actualizar_taller', id=taller.id) }}"><button type="button" class="botn-tables botn-tables--Editar"><i class="material-icons">build</i></button></a>
                                 <form action="{{ url_for('admin.delete_tal', id=taller.id) }}" method="post">
                                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                     <button type="submit" class="botn-tables botn-tables--Eliminar" onclick="return confirm('Seguro?')">
@@ -84,11 +118,13 @@
                     </div>
                 </div>              
             </div>
-            <div class="numpages">
-                {% for i in range(pages) %}
-                  <a href="{{ url_for('admin.adminT', page=(i + 1)) }}">{{ i + 1 }}</a>
-                {% endfor %}
-            </div>
+            {% if pages %}
+                <div class="numpages">
+                    {% for i in range(pages) %}
+                    <a href="{{ url_for('admin.adminT', page=(i + 1)) }}">{{ i + 1 }}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 </main>

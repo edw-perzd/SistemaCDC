@@ -19,7 +19,7 @@
                 <br>
             {% if 'id' in session %}
                 {% if session['rol'] == 3 %}
-                <a href="{{ url_for('admin.admin') }}">Administrar</a>                    
+                <a href="{{ url_for('admin.adminA') }}">Administrar</a>                    
                 {% elif session['rol'] == 2 %}
                 <a href="">Ver mis talleres</a>
                 {% elif session['rol'] == 1 %}

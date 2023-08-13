@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Inscribir alumno
+{% endblock %}
+
+{% block content %}
+<style>
+    footer{
+        margin-top: 0;
+    }
+</style>
+<main class="madmin">
+    <!-- cuerpo principal de la pagina-->
+    <div class="main-panel flex-box">
+        <div class="col-10 col-fixed">
+                <div class="nav nav-vertical">
+                <div class="">
+                    <h4 class="h4">Panel administrador</h4>
+                </div>
+                    <ul>
+                    <li><a class="a secselect" href="{{ url_for('admin.adminA') }}"><i class="material-icons">&#xe80c;</i> <span>Alumnos</span></a></li>
+                    <li><a class="a" href="{{ url_for('admin.adminP') }}"><i class="material-icons">&#xeb44;</i> <span>Profesores</span></a></li>
+                    <li><a class="a" href="{{ url_for('admin.adminT') }}"><i class="material-icons">&#xe7ee;</i> <span>Talleres</span></a></li>
+                    <li><a class="a" href="{{ url_for('admin.solicitudes') }}"><i class="material-icons">history_edu</i><span>Solicitudes</span></a></li>
+                    </ul>
+                </div>
+        </div>
+        <div class="col-90">
+            <div class="data-print center">
+                <div class="left row-padding">
+                    <center><h1 class="h1">Inscribir a {{ user.nombre }} a un taller</h1></center>
+                    <form class="cbp-mc-form" method="POST">
+                        {{ form.csrf_token }}
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div class="cbp-mc-column">
+                        </div>
+                        <div class="cbp-mc-column">
+                            {{ form.taller_id.label }}
+                            {{ form.taller_id() }}
+                            {% if form.taller_id.errors %}
+                                {% for error in form.taller_id.errors %}
+                                <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                            {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div class="alert-log">
+                                            <p>{{ message }}</p>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                        <div class="cbp-mc-column">
+                        </div>
+                        <div class="cbp-mc-submit-wrap">
+                            {{ form.submit(class="cbp-mc-submit") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

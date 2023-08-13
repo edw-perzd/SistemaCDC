@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Crear taller
+{% endblock %}
+
+{% block content %}
+<style>
+    footer{
+        margin-top: 0;
+    }
+</style>
+    <div class="main-panel flex-box">
+        <div class="col-10 col-fixed">
+            <div class="nav nav-vertical">
+              <div class="">
+                <h4 class="h4">Panel administrador</h4>
+              </div>
+                <ul>
+                <li><a class="a" href="{{ url_for('admin.adminA') }}"><i class="material-icons">&#xe80c;</i> <span>Alumnos</span></a></li>
+                <li><a class="a" href="{{ url_for('admin.adminP') }}"><i class="material-icons">&#xeb44;</i> <span>Profesores</span></a></li>
+                <li><a class="a" href="{{ url_for('admin.adminT') }}"><i class="material-icons">&#xe7ee;</i> <span>Talleres</span></a></li>
+                <li><a class="a" href="{{ url_for('admin.solicitudes') }}"><i class="material-icons">history_edu</i><span>Solicitudes</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <!---->
+        <div class="col-90">
+            <div class="data-print center">
+                <div class="left row-padding">
+                    <center><h1 class="h1">Crear nuevo taller</h1></center>
+                    <form class="cbp-mc-form" method="POST">
+                        {{ form.csrf_token }}
+                        <div class="cbp-mc-column">
+                            {{ form.nombre.label }}
+                            {{ form.nombre(autocomplete="off", placeholder="Juan") }}
+                            {% if form.nombre.errors %}
+                                {% for error in form.nombre.errors %}
+                                <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div> 
+                        <div class="cbp-mc-column">
+                            {{ form.descrip.label }}
+                            {{ form.descrip(autocomplete="off") }}
+                            {% if form.descrip.errors %}
+                                {% for error in form.descrip.errors %}
+                                <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="cbp-mc-column">
+                            {{ form.categoria.label }}
+                            {{ form.categoria(autocomplete="off", placeholder="Carpinteria") }}
+                            {% if form.categoria.errors %}
+                                {% for error in form.categoria.errors %}
+                                <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="cbp-mc-submit-wrap">
+                            {{ form.submit(class="cbp-mc-submit") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

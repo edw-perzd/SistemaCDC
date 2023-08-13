@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Verificando
+{% endblock %}
+
+{% block content %}
+<style>
+    .container_rc{
+        width: 500px;
+        padding: 20px;
+        margin: auto;
+        background: #ffffff;
+        border-radius: 15px;
+    }
+
+    h1{
+        text-align: center;
+        padding: 20px;
+        color: #cea5d8;
+    }
+
+    h2{
+        font-size: 20px;
+        color: #cc33b3;
+        text-align: center;
+        padding: 20px 10px;
+    }
+    
+    .correo_rc{
+        width: 100%;
+        border: none;
+        background: none;
+        border-bottom: solid #813b70 1px;
+        padding: 15px;
+        outline: none;
+        margin-bottom: 20px;
+    }
+    
+    .correo_rc:focus{
+        border-bottom: solid #ff15b9 1px;
+    }
+    
+    .rc_buttom{
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .salir{
+        text-decoration: none;
+        background: #8f4082;
+        padding: 8px 15px;
+        color: white;
+        font-size: 14px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    .salir:hover{
+        background: #e649cb;
+    }
+    
+    .enviar_rc{
+        background: #8f4082;
+        padding: 8px 15px;
+        color: white;
+        border: none;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    
+    .enviar_rc:hover{
+        background: #e649cb;
+    }
+</style>
+    <h1>Recuperar contraseña</h1>
+
+    <div class="container_rc">
+        <h2>Ingresa tu correo electronico</h2>
+        <form class="form_rc" method="POST">
+            <div class="form_correo">
+                {{ form.correo.label }}
+                {{ form.correoE(autocomplete="off", placeholder="Correo electronico") }}
+                {% if form.contrasenia.errors %}
+                    {% for error in form.contrasenia.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+                <input type="email" placeholder="Ingresa tu correo" class="correo_rc">
+            </div>
+            <div class="rc_buttom">
+                <a class="salir" href="/Inicio/Index/Inicio.html">Regresar</a>
+                <button class="enviar_rc">Enviar link</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

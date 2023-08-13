@@ -5,24 +5,7 @@
 
 {% block content %}
 <!--Alertas-->
-{% with messages = get_flashed_messages() %}
-    {% if messages%}
-        {% for message in messages %}
-        <div class="alert-container">
-            <div class="alert">
-              <div class="alert-text">{{ message }}</div>
-              <button class="alert-button">Cerrar</button>
-            </div>
-        </div>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
-<script>
-    window.addEventListener('DOMContentLoaded', function(){
-      var alertElement = document.querySelector('.alert');
-      alertElement.style.animationDelay = '1s';
-    });
-</script>
+
 <!----------->
     <!---->
 <div class="hero">
@@ -63,6 +46,15 @@
                     </label>
                     {{ form.submit() }}
                 </form>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages%}
+                        {% for message in messages %}
+                            <div class="alert-log">
+                                <p>{{ message }}</p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
                 <br>
                 <a href="#" class="link_form">Olvide mi contraseña</a>
                 <p class="text_form">¿No tienes cuenta?</p>

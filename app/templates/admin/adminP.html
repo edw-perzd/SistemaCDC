@@ -40,7 +40,25 @@
             <div class="panel-opciones">
               <div class="flex-box"> 
                 <span>
-                  <input class="in txt-form" type="text" name="" placeholder="Busqueda">
+                  <form method="post">
+                    {{ form.csrf_token }}
+                    {{ form.tipo.label }}
+                    {{ form.tipo(class="in txt-form") }}
+                    {% if form.tipo.errors %}
+                        {% for error in form.tipo.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    {{ form.texto.label }}
+                    {{ form.texto(class="in txt-form", placeholder="Búsqueda", autocomplete="off") }}
+                    {% if form.texto.errors %}
+                        {% for error in form.texto.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
+  
+                    {{ form.submit(class="button h4") }}
+                  </form>
                 </span>
               </div>
               <div class="left">
@@ -55,7 +73,7 @@
                       <th>Nombre(s)</th>
                       <th>Apellido paterno</th>
                       <th>Apellido materno</th>
-                      <th>Taller</th>
+                      <th>Taller a cargo</th>
                       <th>Correo electrónico</th>
                       <th>Teléfono</th>
                       <th>Edad</th>
@@ -71,7 +89,13 @@
                         <td>{{ profe.nombre }}</td>
                         <td>{{ profe.aPaterno }}</td>
                         <td>{{ profe.aMaterno }}</td>
-                        <td>Por arreglar</td>
+                        <td>
+                          {% for taller in talleres %}
+                            {% if profe.id == taller.id_profesor %}
+                              {{ taller.nombre }}
+                            {% endif %}
+                          {% endfor %}
+                        </td>
                         <td>{{ profe.correoE }}</td>
                         <td>{{ profe.telefono }}</td>
                         <td>{{ profe.edad }}</td>
@@ -85,6 +109,8 @@
                               <i class="material-icons">delete</i>
                             </button>
                           </form>
+                          <a href="{{ url_for('admin.asignarT', id=profe.id) }}"><button type="button" class="botn-tables botn-tables--Editar"><i class="material-icons"><span class="material-symbols-outlined">assignment_add</span></i></button></a>
+                          <a href="{{ url_for('admin.deassign', id=profe.id) }}"><button type="button" class="botn-tables botn-tables--Editar"><i class="material-icons"><span class="material-symbols-outlined">unsubscribe</span></i></button></a>
                         </td>
                       </tr>
                   {% endfor %}
@@ -93,12 +119,13 @@
             </div>
           </div>
       </div>
-      <!---->
-      <div class="numpages">
-        {% for i in range(pages) %}
-          <a href="{{ url_for('admin.adminP', page=(i + 1)) }}">{{ i + 1 }}</a>
-        {% endfor %}
-      </div>
+      {% if pages %} 
+        <div class="numpages">
+          {% for i in range(pages) %}
+            <a href="{{ url_for('admin.adminP', page=(i + 1)) }}">{{ i + 1 }}</a>
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
   </div>
 </main>

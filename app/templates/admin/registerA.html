@@ -5,6 +5,11 @@
 {% endblock %}
 
 {% block content %}
+<style>
+    footer{
+        margin-top: 0;
+    }
+</style>
     <div class="main-panel flex-box">
         <div class="col-10 col-fixed">
             <div class="nav nav-vertical">
@@ -12,10 +17,10 @@
                 <h4 class="h4">Panel administrador</h4>
               </div>
                 <ul>
-                <li><a onclick="mostrarAlm()" class="a" href="{{ url_for('admin.admin') }}"><i class="material-icons">&#xe80c;</i> <span>Alumnos</span></a></li>
-                <li><a onclick="mostrarProf()" class="a" href="{{ url_for('admin.admin') }}"><i class="material-icons">&#xeb44;</i> <span>Profesores</span></a></li>
-                <li><a onclick="mostrarTal()" class="a" href="{{ url_for('admin.admin') }}"><i class="material-icons">&#xe7ee;</i> <span>Talleres</span></a></li>
-                <!--<li><a onclick="mostrarAdmin()" class="a" href="{{ url_for('admin.admin') }}"><i class="material-icons"></i> <span>Administradores</span></a></li>-->
+                <li><a class="a" href="{{ url_for('admin.adminA') }}"><i class="material-icons">&#xe80c;</i> <span>Alumnos</span></a></li>
+                <li><a class="a" href="{{ url_for('admin.adminP') }}"><i class="material-icons">&#xeb44;</i> <span>Profesores</span></a></li>
+                <li><a class="a" href="{{ url_for('admin.adminT') }}"><i class="material-icons">&#xe7ee;</i> <span>Talleres</span></a></li>
+                <li><a class="a" href="{{ url_for('admin.solicitudes') }}"><i class="material-icons">history_edu</i><span>Solicitudes</span></a></li>
                 </ul>
             </div>
         </div>

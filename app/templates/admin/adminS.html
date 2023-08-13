@@ -96,6 +96,74 @@ footer{
                 {% endif %}
               </div>
             </div>
+            <div id="soli">
+              <div class="data-print center">
+                <div class="left row-padding">
+                      <h1 class="h1">Solicitudes de Profesores</h1>
+                      <p class="p">Listado de solicitudes</p>
+                </div>
+                {% if soliprof %}
+                  <div class="panel-opciones">
+                    <div class="flex-box"> 
+                      <span>
+                        <input class="in txt-form" type="text" name="" placeholder="Busqueda">
+                      </span>
+                    </div>
+                    <div class="left">
+                      Resultados.
+                      </div>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                          <tr>
+                            <th>Nombre</th>
+                            <th>Apellido paterno</th>
+                            <th>Apellido materno</th>
+                            <th>Correo electrónico</th>
+                            <th>Teléfono</th>
+                            <th>Edad</th>
+                            <th>Taller solicitado</th>
+                            <th>Acción</th>
+        
+                          </tr>
+                      </thead>
+                      <tbody>
+                        {% for solicitud in soliprof %}
+                        <tr>
+                              <td>{{ solicitud.nombre_profesor }}</td>
+                              <td>{{ solicitud.aPaterno_profesor }}</td>
+                              <td>{{ solicitud.aMaterno_profesor }}</td>
+                              <td>{{ solicitud.correoE_profesor }}</td>
+                              <td>{{ solicitud.telefono_profesor }}</td>
+                              <td>{{ solicitud.edad_profesor }}</td>
+                              <th>{{ solicitud.nombre_taller }}</th>
+                              <td> 
+                                <form action="{{ url_for('admin.aceptar_asign', id=solicitud.id_profesor, tal=solicitud.id_taller) }}" method="post">
+                                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                  <button type="submit" class="botn-tables botn-tables--Eliminar" onclick="return confirm('Aceptar solicitud?')">
+                                  <i class="material-icons">add_task</i>
+                                  </button>
+                                </form>
+                                <form action="{{ url_for('admin.denegar_asign', id=solicitud.id_profesor, tal=solicitud.id_taller) }}" method="post">
+                                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                  <button type="submit" class="botn-tables botn-tables--Eliminar" onclick="return confirm('Seguro?')">
+                                  <i class="material-icons">delete</i>
+                                  </button>
+                                </form>
+                              </td>
+                            </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                {% else %}
+                  <div class="table-responsive">
+                    <h1 class="h1">En este momento no hay solicitudes</h1>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
         </div>
     </div>
 

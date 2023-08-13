@@ -749,7 +749,7 @@ body{
     line-height: 2;
   }
   .txt-form{
-     width: 100%;
+    width: 150px;
     border:1px solid #96a0a5e6;
     border-radius: 3px;
     padding:11px 12px 9px 8px;
