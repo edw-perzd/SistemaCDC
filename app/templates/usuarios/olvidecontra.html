@@ -64,6 +64,15 @@
                 <a class="salir" href="{{ url_for('home.home') }}">Regresar</a>
                 {{ form.submit(class="enviar_rc") }}
             </div>
+            {% with messages = get_flashed_messages() %}
+                    {% if messages%}
+                        {% for message in messages %}
+                            <div class="alert-log">
+                                <p>{{ message }}</p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+            {% endwith %}
         </form>
     </div>
 {% endblock %}

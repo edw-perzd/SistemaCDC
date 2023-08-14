@@ -1,15 +1,20 @@
-from flask import Blueprint, redirect, render_template, url_for, flash, abort, session
+from flask import Blueprint, redirect, render_template, url_for, flash, abort, session, Response
 
 from models.usuarios import Usuario,Toma
 from models.talleres import Taller, Asignado
 
+from io import BytesIO
 import math
 
 from forms.usuarios_forms import CrearUsuario, ActualizarUsuario, InscribirAlumnos, DarBajaAlumnos, AsignarTaller, DarBajaProfe, BuscarUsuario
 
-from forms.talleres_forms import CrearTaller, BuscarTaller, ActualizarTaller
-
 from forms.reportes_forms import GenReportA, GenReportP
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.pagesizes import letter, landscape
+from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+
+from forms.talleres_forms import CrearTaller, BuscarTaller, ActualizarTaller
 
 import datetime
 
@@ -315,11 +320,11 @@ def delete_tal(id):
         abort(404)
 
 @admin_views.route("/admin/solicitudes/")
-#@admin_views.route('/admin/solicitudes/<int:page>/')
 def solicitudes():
     if session.get('rol') == 3:
         solicitudes = Toma.solicitudes_alm()
 
+        # Se solicitan las solicitudes de los profesores con un método de la clase Asignado
         soliprof = Asignado.solicitudes_prof()
 
         return render_template('admin/adminS.html', solicitudes=solicitudes, soliprof=soliprof)
@@ -467,3 +472,122 @@ def delete(id, rol):
         return redirect(url_for('admin.adminA'))
     else:
         abort(404)
+
+@admin_views.route('/admin/reportes/alumnos', methods=['POST', 'GET'])
+def reportes():
+
+    form = GenReportA()
+    if form.validate_on_submit():
+        fecha = form.fecha.data
+
+        # Obtener los talleres por fecha utilizando la función get_talleres_by_fecha
+        alumnos_data = Toma.get_talleres_by_fecha(fecha)
+
+        # Crear un objeto PDF en orientación horizontal (landscape)
+        pdf_buffer = BytesIO()
+        doc = SimpleDocTemplate(pdf_buffer, pagesize=landscape(letter))
+
+        # Contenido del PDF
+        story = []
+        styles = getSampleStyleSheet()
+        story.append(Paragraph("Reporte de alumnos por fecha", styles['Title']))
+        story.append(Paragraph(f"Fecha de inicio: {fecha}", styles['Normal']))
+        story.append(Spacer(1, 12))
+
+        # Crear una tabla con los datos de talleres por fecha
+        if alumnos_data:
+            data = [['ID', 'Nombre(s)', 'Apellido Paterno', 'Apellido Materno', 'Correo Electrónico', 'Teléfono', 'Edad', 'Taller', 'Fecha Inscripción']]
+            data.extend([
+                [
+                    taller.id_alumno,
+                    taller.nombre_alumno,
+                    taller.aPaterno_alumno,
+                    taller.aMaterno_alumno,
+                    taller.correoE_alumno,
+                    taller.telefono_alumno,
+                    taller.edad_alumno,
+                    taller.nombre_taller,
+                    taller.fechaInscripcion
+                ]
+                for taller in alumnos_data
+            ])
+
+            table = Table(data)
+            table.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#cc33b3')),
+                                    ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                                    ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                                    ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                                    ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                                    ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                                    ('GRID', (0, 0), (-1, -1), 1, colors.black)]))
+            story.append(table)
+        else:
+            story.append(Paragraph("No se encontraron talleres para la fecha especificada.", styles['Normal']))
+
+        # Construir el PDF y guardar en el objeto BytesIO
+        doc.build(story)
+
+        # Regresar el archivo PDF como descarga
+        pdf_buffer.seek(0)
+        return Response(pdf_buffer, mimetype='application/pdf', headers={'Content-Disposition': 'attachment; filename=reporte_alumnos.pdf'})
+
+    return render_template('admin/reportes.html', form=form)
+
+@admin_views.route('/admin/reportes/profesores', methods=['POST', 'GET'])
+def reportesP():
+    ##Proceso para reportes de profesores
+    form = GenReportP()
+    if form.validate_on_submit():
+        fecha = form.fecha.data
+
+        # Obtener los talleres por fecha utilizando la función get_talleres_by_fecha
+        profes_data = Asignado.get_talleres_by_fecha(fecha)
+
+        # Crear un objeto PDF en orientación horizontal (landscape)
+        pdf_buffer = BytesIO()
+        doc = SimpleDocTemplate(pdf_buffer, pagesize=landscape(letter))
+
+        # Contenido del PDF
+        story = []
+        styles = getSampleStyleSheet()
+        story.append(Paragraph("Reporte de profesores por fecha", styles['Title']))
+        story.append(Paragraph(f"Fecha de inicio: {fecha}", styles['Normal']))
+        story.append(Spacer(1, 12))
+
+        # Crear una tabla con los datos de talleres por fecha
+        if profes_data:
+            data = [['ID', 'Nombre(s)', 'Apellido Paterno', 'Apellido Materno', 'Correo Electrónico', 'Teléfono', 'Edad', 'Taller a cargo', 'Fecha Inscripción']]
+            data.extend([
+                [
+                    taller.id_profesor,
+                    taller.nombre_profesor,
+                    taller.aPaterno_profesor,
+                    taller.aMaterno_profesor,
+                    taller.correoE_profesor,
+                    taller.telefono_profesor,
+                    taller.edad_profesor,
+                    taller.nombre_taller,
+                    taller.fechaAsignacion
+                ]
+                for taller in profes_data
+            ])
+
+            table = Table(data)
+            table.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#cc33b3')),
+                                    ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                                    ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                                    ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                                    ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                                    ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                                    ('GRID', (0, 0), (-1, -1), 1, colors.black)]))
+            story.append(table)
+        else:
+            story.append(Paragraph("No se encontraron talleres para la fecha especificada.", styles['Normal']))
+
+        # Construir el PDF y guardar en el objeto BytesIO
+        doc.build(story)
+
+        # Regresar el archivo PDF como descarga
+        pdf_buffer.seek(0)
+        return Response(pdf_buffer, mimetype='application/pdf', headers={'Content-Disposition': 'attachment; filename=reporte_profesores.pdf'})
+    return render_template('admin/reportesP.html', form=form)

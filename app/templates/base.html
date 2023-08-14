@@ -31,7 +31,7 @@
                     <li><a href="{{ url_for('user.logout') }}">Cerrar sesión</a></li>
                 </ul>
             </nav>
-            <a href="#" class="btn"><button>{{ session['nombre'] }}</button></a>
+            <a href="{{ url_for('user.my_profile') }}" class="btn"><button>{{ session['nombre'] }}</button></a>
                 {% else %}
                     <li><a href="{{ url_for('user.register') }}">Registrarme</a></li>
                 </ul>

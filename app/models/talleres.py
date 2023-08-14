@@ -179,7 +179,7 @@ class Taller():
     
 class Asignado:
 
-    def __init__(self, id_taller, nombre_taller, id_profesor, nombre_profesor, aPaterno_profesor, aMaterno_profesor, correoE_profesor, telefono_profesor, edad_profesor):
+    def __init__(self, id_taller, nombre_taller, id_profesor, nombre_profesor, aPaterno_profesor, aMaterno_profesor, correoE_profesor, telefono_profesor, edad_profesor, fechaAsignacion=''):
         self.id_taller = id_taller
         self.nombre_taller = nombre_taller
         self.id_profesor = id_profesor
@@ -189,6 +189,7 @@ class Asignado:
         self.correoE_profesor = correoE_profesor
         self.telefono_profesor = telefono_profesor
         self.edad_profesor = edad_profesor
+        self.fechaAsignacion = fechaAsignacion
         
     @staticmethod
     def solicitudes_prof():
@@ -240,6 +241,21 @@ class Asignado:
                 for taller in result:
                     if taller['fechaAsignacion_taller'] != None:
                         talleres.append(Asignado(taller['id_taller'], taller['nombre_taller'], taller['id_profesor'], taller['nombre_profesor'], taller['aPaterno_profesor'], taller['aMaterno_profesor'], taller['correoE_profesor'], taller['telefono_profesor'], taller['edad_profesor']))
+                return talleres
+            else:
+                return None  
+                  
+    @staticmethod
+    def get_talleres_by_fecha(fecha):
+        talleres = []
+        with mydb.cursor(dictionary=True) as cursor:
+            sql = f"SELECT talleres.*, profesores.* FROM talleres, profesores talleres.fechaAsignacion_taller >= '{ fecha }' AND talleres.id_profesor = profesores.id_profesor"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            if result:
+                for taller in result:
+                    if taller['fechaAsignacion_taller'] != None:
+                        talleres.append(Asignado(taller['id_taller'], taller['nombre_taller'], taller['id_profesor'], taller['nombre_profesor'], taller['aPaterno_profesor'], taller['aMaterno_profesor'], taller['correoE_profesor'], taller['telefono_profesor'], taller['edad_profesor'], taller['fechaAsignacion']))
                 return talleres
             else:
                 return None    
