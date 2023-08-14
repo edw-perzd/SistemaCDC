@@ -20,9 +20,6 @@
         <div class="form_formation">
             <div class="form_information_ch">
                 <h2>Inicio de Sesión</h2>
-                <div class="icons">
-                    <i class='bx bxl-google'></i>
-                </div>
                 <form class="form" method="POST">
                     {{ form.csrf_token }}
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
@@ -56,9 +53,9 @@
                     {% endif %}
                 {% endwith %}
                 <br>
-                <a href="#" class="link_form">Olvide mi contraseña</a>
+                <a href="{{ url_for('user.olvidcontra') }}" class="link_form">Olvide mi contraseña</a>
                 <p class="text_form">¿No tienes cuenta?</p>
-                <a href="#" class="link_form">Registrate</a>
+                <a href="{{ url_for('user.register') }}" class="link_form">Registrate</a>
             </div>
         </div>
     </div>

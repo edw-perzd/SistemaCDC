@@ -9,6 +9,8 @@ from forms.usuarios_forms import CrearUsuario, ActualizarUsuario, InscribirAlumn
 
 from forms.talleres_forms import CrearTaller, BuscarTaller, ActualizarTaller
 
+from forms.reportes_forms import GenReportA, GenReportP
+
 import datetime
 
 admin_views = Blueprint('admin', __name__)
@@ -409,12 +411,43 @@ def actualizar_usuario(id, rol):
             usuario.nombre = form.nombre.data
             usuario.aPaterno = form.aPaterno.data
             usuario.aMaterno = form.aMaterno.data
-            usuario.correoE = form.correoE.data
-            usuario.telefono = form.telefono.data
+            correoE = form.correoE.data
+            telefono = form.telefono.data
             usuario.edad = form.edad.data
+            
+            if correoE == usuario.correoE:
+                if telefono == usuario.telefono:
+                    usuario.correoE = correoE
+                    usuario.telefono = telefono
+                    usuario.guardar()
+                else:
+                    validc = Usuario.check_phone(telefono)
+                    if validc is None:
+                        usuario.correoE = correoE
+                        usuario.telefono = telefono
+                        usuario.guardar()
+                    else:
+                        flash('Este número de teléfono ya existe')
+            else:
+                validt = Usuario.check_email(correoE)
+                if validt is None:
+                    if telefono == usuario.telefono:
+                        usuario.correoE = correoE
+                        usuario.telefono = telefono
+                        usuario.guardar()
+                    else:
+                        validc = Usuario.check_phone(telefono)
+                        if validc is None:
+                            usuario.correoE = correoE
+                            usuario.telefono = telefono
+                            usuario.guardar()
+                        else:
+                            flash('Este número de teléfono ya existe')     
+                else:
+                    flash('Este correo electrónico ya existe')
+                
 
-            usuario.guardar()
-            return redirect(url_for('admin.adminA'))
+            return render_template('admin/updateU.html', form=form, usuario=usuario)
         form.nombre.data = usuario.nombre
         form.aPaterno.data = usuario.aPaterno
         form.aMaterno.data = usuario.aMaterno

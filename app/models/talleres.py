@@ -127,7 +127,8 @@ class Taller():
             result = cursor.fetchall()
             if result:
                 for taller in result:
-                    talleres.append(Taller(taller['id_taller'], taller['nombre_taller'], taller['descrip_taller'], taller['categoria_taller'], taller['id_admin'], taller['fechaRegistro_taller'], id))
+                    if taller['fechaAsignacion_taller'] != None:
+                        talleres.append(Taller(taller['id_taller'], taller['nombre_taller'], taller['descrip_taller'], taller['categoria_taller'], taller['id_admin'], taller['fechaRegistro_taller'], id, taller['fechaAsignacion_taller']))
                 return talleres
             else:
                 return None
@@ -206,3 +207,39 @@ class Asignado:
                 return solicitudes
             else:
                 return None
+    
+    @staticmethod
+    def solicitar_asign(id_profesor, id_taller):
+        with mydb.cursor() as cursor:
+            sql = "UPDATE talleres SET id_profesor = %s WHERE id_taller = %s"
+            val = (id_profesor, id_taller)
+            cursor.execute(sql, val)
+            mydb.commit()
+            id = cursor.lastrowid
+            return id
+
+    @staticmethod
+    def verificar_asign(id_taller):
+        with mydb.cursor(dictionary=True) as cursor:
+            sql = f"SELECT * FROM talleres WHERE id_profesor IS NULL AND id_taller = { id_taller }"
+            cursor.execute(sql)
+            result = cursor.fetchone()
+            if result:
+                return 'Hay espacio para solicitar'
+            else:
+                return None  
+
+    @staticmethod
+    def get_talleres_by_correo(correoE):
+        talleres = []
+        with mydb.cursor(dictionary=True) as cursor:
+            sql = f"SELECT talleres.*, profesores.* FROM talleres, profesores WHERE profesores.correoE_profesor = '{ correoE }' AND talleres.id_profesor = profesores.id_profesor"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            if result:
+                for taller in result:
+                    if taller['fechaAsignacion_taller'] != None:
+                        talleres.append(Asignado(taller['id_taller'], taller['nombre_taller'], taller['id_profesor'], taller['nombre_profesor'], taller['aPaterno_profesor'], taller['aMaterno_profesor'], taller['correoE_profesor'], taller['telefono_profesor'], taller['edad_profesor']))
+                return talleres
+            else:
+                return None    

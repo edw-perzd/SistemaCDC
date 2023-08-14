@@ -55,6 +55,36 @@ class Usuario():
                     cursor.execute(sql, val)
                     mydb.commit()
                     return self.id
+            elif self.rol == '3' or self.rol == 3:
+                with mydb.cursor() as cursor:
+                    sql = "UPDATE administradores SET nombre_admin = %s, aPaterno_admin = %s, aMaterno_admin = %s, correoE_admin = %s, telefono_admin = %s, edad_admin = %s WHERE id_admin = %s"
+                    val = (self.nombre, self.aPaterno, self.aMaterno, self.correoE, self.telefono, self.edad, self.id)
+                    cursor.execute(sql, val)
+                    mydb.commit()
+                    return self.id
+    def cambio_c(self):
+        self.contrasenia = generate_password_hash(self.contrasenia)
+        if self.rol == '1' or self.rol == 1:
+            with mydb.cursor() as cursor:
+                    sql = "UPDATE alumnos SET contrasenia_alumno= %s WHERE id_alumno = %s"
+                    val = (self.contrasenia, self.id)
+                    cursor.execute(sql, val)
+                    mydb.commit()
+                    return self.id
+        elif self.rol == '2' or self.rol == 2:
+            with mydb.cursor() as cursor:
+                sql = "UPDATE profesores SET contrasenia_profesor = %s WHERE id_profesor = %s"
+                val = (self.contrasenia, self.id)
+                cursor.execute(sql, val)
+                mydb.commit()
+                return self.id
+        elif self.rol == '3' or self.rol == 3:
+            with mydb.cursor() as cursor:
+                sql = "UPDATE administradores SET contrasenia_admin = %s WHERE id_admin = %s"
+                val = (self.contrasenia, self.id)
+                cursor.execute(sql, val)
+                mydb.commit()
+                return self.id
             
     def eliminar(self):
         with mydb.cursor() as cursor:
@@ -250,6 +280,54 @@ class Usuario():
                         if check_password_hash(user['contrasenia_admin'], password):
                             return Usuario.__get__(user["id_admin"], rol)
                     return None
+                
+    @staticmethod
+    def get_usu_by_correo(correoE):
+        with mydb.cursor(dictionary=True) as cursor:
+            sql = "SELECT * FROM alumnos WHERE correoE_alumno = %s"
+            val = (correoE,)
+            cursor.execute(sql, val)
+            user = cursor.fetchone()
+            if user != None:
+                rol = 1
+                return Usuario.__get__(user["id_alumno"], rol)
+            else:
+                sql = "SELECT * FROM profesores WHERE correoE_profesor = %s"
+                val = (correoE,)
+                cursor.execute(sql, val)
+                user = cursor.fetchone()
+                if user != None:
+                    rol = 2
+                    return Usuario.__get__(user["id_profesor"], rol)
+                else:
+                    sql = "SELECT * FROM administradores WHERE correoE_admin = %s"
+                    val = (correoE,)
+                    cursor.execute(sql, val)
+                    user = cursor.fetchone()
+                    if user != None:
+                        rol = 3 
+                        return Usuario.__get__(user["id_admin"], rol)
+                    return None
+
+    @staticmethod
+    def olvidcontra(nombre, aPaterno, aMaterno, correoE, telefono):
+        with mydb.cursor(dictionary=True) as cursor:
+            sql = "SELECT * FROM alumnos WHERE nombre_alumno = %s AND aPaterno_alumno = %s AND aMaterno_alumno = %s AND correoE_alumno = %s AND telefono_alumno = %s"
+            val = (nombre, aPaterno, aMaterno, correoE, telefono)
+            cursor.execute(sql, val)
+            user = cursor.fetchone()
+            if user != None:
+                rol = 1
+                return Usuario.__get__(user["id_alumno"], rol)
+            else:
+                sql = "SELECT * FROM profesores WHERE nombre_profesor = %s AND aPaterno_profesor = %s AND aMaterno_profesor = %s AND correoE_profesor = %s AND telefono_profesor = %s"
+                val = (nombre, aPaterno, aMaterno, correoE, telefono)
+                cursor.execute(sql, val)
+                user = cursor.fetchone()
+                if user != None:
+                    rol = 2
+                    return Usuario.__get__(user["id_profesor"], rol)
+                return None
 
     @staticmethod
     def obtener_correo(correoE):
@@ -318,7 +396,7 @@ class Usuario():
                     if usuario:
                         return 'El telefono existe'
                     else:
-                        return None     
+                        return None   
 
 class Toma:
 
@@ -385,6 +463,16 @@ class Toma:
                 return 'Ya esta inscrito'
             else:
                 return None
+    
+    @staticmethod
+    def solicitar_taller(id_alumno, id_taller):
+        with mydb.cursor() as cursor:
+            sql = "INSERT INTO toma (id_alumno, id_taller) VALUES (%s, %s)"
+            val = (id_alumno, id_taller)
+            cursor.execute(sql, val)
+            mydb.commit()
+            id = cursor.lastrowid
+            return id
 
     @staticmethod
     def get_talleres_by_correo(correoE):
@@ -400,20 +488,10 @@ class Toma:
                 result = cursor.fetchall()
                 if result:
                     for taller in result:
-                        toma.append(Toma(taller['id_alumno'], taller['nombre_alumno'], taller['aPaterno_alumno'], taller['aMaterno_alumno'], taller['correoE_alumno'], taller['telefono_alumno'], taller['edad_alumno'], taller['id_taller'], taller['nombre_taller'], taller['descrip_taller'], taller['categoria_taller'], taller['fechaInscripcion']))
+                        if taller['fechaInscripcion'] != None:
+                            toma.append(Toma(taller['id_alumno'], taller['nombre_alumno'], taller['aPaterno_alumno'], taller['aMaterno_alumno'], taller['correoE_alumno'], taller['telefono_alumno'], taller['edad_alumno'], taller['id_taller'], taller['nombre_taller'], taller['descrip_taller'], taller['categoria_taller'], taller['fechaInscripcion']))
                     return toma
-            else:
-                csql = f"SELECT id_profesor FROM profesores WHERE correoE_profesor = { correoE }"
-                cursor.execute(csql)
-                result = cursor.fetchone()
-                if result:
-                    id = result['id_profesor']
-                    sql = f'SELECT * FROM talleres WHERE id_profesor = { id }'
-                    cursor.execute(sql)
-                    result = cursor.fetchall()
-                    for taller in result:
-                        toma.append(id_profesor=taller['id_profesor'], id_taller=taller['id_taller'], nombre_taller=taller['nombre_taller'], descrip_taller=taller['descrip_taller'])
-                    return toma
+                return None
 
     @staticmethod
     def get_talleres_by_id(id):
@@ -426,6 +504,21 @@ class Toma:
                 for taller in result:
                     if taller['fechaInscripcion'] != None:
                         toma.append(Toma(taller['id_alumno'], None, None, None, None, None, None, taller['id_taller'], taller['nombre_taller'], taller['descrip_taller'], taller['categoria_taller'], taller['fechaInscripcion']))
+                return toma
+            else:
+                return None
+            
+    @staticmethod
+    def get_talleres_by_fecha(fecha):
+        toma = []
+        with mydb.cursor(dictionary=True) as cursor:
+            sql = f"SELECT toma.*, talleres.*, alumnos.* FROM toma, talleres, alumnos WHERE toma.fechaInscripcion >= '{ fecha }' AND toma.id_taller = talleres.id_taller AND toma.id_alumno = alumnos.id_alumno;"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            if result:
+                for taller in result:
+                    if taller['fechaInscripcion'] != None:
+                        toma.append(Toma(taller['id_alumno'], taller['nombre_alumno'], taller['aPaterno_alumno'], taller['aMaterno_alumno'], taller['correoE_alumno'], taller['telefono_alumno'], taller['edad_alumno'], taller['id_taller'], taller['nombre_taller'], taller['descrip_taller'], taller['categoria_taller'], taller['fechaInscripcion']))
                 return toma
             else:
                 return None

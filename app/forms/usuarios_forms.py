@@ -61,14 +61,11 @@ class ActualizarUsuario(FlaskForm):
     edad = IntegerField('Edad', validators=[DataRequired()])
     submit = SubmitField('Guardar')
 
-    def validate_correoE(self, field):
-        ######## Consultar si el correo existe en la base de datos #######
-        if Usuario.check_email(field.data):
-            raise ValidationError('El correo ya existe')
-    def validate_telefono(self, field):
-        ######## Consultar si el telefono existe en la base de datos #######
-        if Usuario.check_phone(field.data):
-            raise ValidationError('Este número ya existe')
+        
+class ProfileForm(FlaskForm):
+    contrasenia = PasswordField('Cambiar contraseña', validators=[DataRequired(), EqualTo('contrasenia_confirm', message="Las contraseñas deben coincidir"), Length(min=8, max=15, message='La contraseña debe contener de 8 a 10 digitos')])
+    contrasenia_confirm = PasswordField('Confirmar contraseña', validators=[DataRequired(),])
+    submit = SubmitField('Guardar')
 
 class InscribirAlumnos(FlaskForm):
     talleres = []
@@ -94,14 +91,22 @@ class DarBajaProfe(FlaskForm):
     taller_id = SelectField('Dar de baja del taller...', choices=talleres, coerce=int, validate_choice=False, validators=[DataRequired()])
     submit = SubmitField('Desasignar')
 
-class ValidarInfo(FlaskForm):
+class ElegirTaller(FlaskForm):
     talleres = []
 
     correoE = EmailField('Correo electrónico', validators=[DataRequired(), Email(message='Este campo debe contener un @ y al menos un punto')])
-    telefono = TelField('Número de telefono', validators=[DataRequired(), Length(min=10, max=10, message='El número de teléfono debe contener al menos 10 digitos')])
     taller_id = SelectField('Selecciona el taller', choices=talleres, coerce=int, validate_choice=False, validators=[DataRequired()])
     contrasenia = PasswordField('Contraseña', validators=[DataRequired()])
-    submit = SubmitField('Asignar')
+    submit = SubmitField('Solicitar taller')
+
+class OlvideContra(FlaskForm):
+    nombre = StringField('Como te llamas?', validators=[DataRequired(), Length(min=3, max=30, message='Este campo debe contener al menos 3 letras')])
+    aPaterno = StringField('Ingresa tu apellido paterno', validators=[DataRequired(), Length(min=3, max=30, message='Este campo debe contener al menos 3 letras')])
+    aMaterno = StringField('Ingresa tu apellido materno', validators=[DataRequired(), Length(min=3, max=30, message='Este campo debe contener al menos 3 letras')])
+    correoE = EmailField('Correo electrónico', validators=[DataRequired(), Email(message='Este campo debe contener un @ y al menos un punto')])
+    telefono = TelField('Número de telefono', validators=[DataRequired(), Length(min=10, max=10, message='El número de teléfono debe contener al menos 10 digitos')])
+    contrasenia = PasswordField('Ingresa tu nueva contraseña', validators=[DataRequired(), Length(min=8, max=15, message='La contraseña debe contener de 8 a 10 digitos')])
+    submit = SubmitField('Cambiar contraseña')
 
 class BuscarUsuario(FlaskForm):
     

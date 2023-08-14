@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Perfil de usuario
+{% endblock %}
+
+{% block content %}
+<style>
+    footer{
+        margin-top: 100px;
+    }
+  </style>
+  <br>
+  <br>
+    <div class="data-print center">
+        <div class="left row-padding">
+            <center><h1 class="h1">Perfil de usuario</h1></center>
+            <br>
+            <form class="cbp-mc-form" method="POST">
+                {{ form.csrf_token }}
+                    <div class="cbp-mc-column h4">
+                        <br>
+                        <br>
+                       Nombre completo: {{ user.nombre }} {{ user.aPaterno }} {{ user.aMaterno }}
+                       <br>
+                       <br>
+                       Correo electrónico: {{ user.correoE }}
+                       <br>
+                       <br>
+                       Número de teléfono: {{ user.telefono }}
+                       <br>
+                       <br>
+                       Edad: {{ user.edad }}
+                    </div>
+                    <div class="cbp-mc-column h4">
+                        <br>
+                        <br>
+                    </div>
+                    <div class="cbp-mc-column">
+                        {{ form.contrasenia.label }}
+                        {{ form.contrasenia(autocomplete="off") }}
+                        {% if form.contrasenia.errors %}
+                            {% for error in form.contrasenia.errors %}
+                            <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                        {{ form.contrasenia_confirm.label }}
+                        {{ form.contrasenia_confirm(autocomplete="off") }}
+                        {% if form.contrasenia_confirm.errors %}
+                            {% for error in form.contrasenia_confirm.errors %}
+                            <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="cbp-mc-submit-wrap">
+                            {{ form.submit(class="cbp-mc-submit") }}
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

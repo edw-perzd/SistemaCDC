@@ -50,7 +50,11 @@
                         </div>
                     </div>
                     <div class="card-content">
-                        <button class="inscripcion">Inscribirme a otro taller</button>
+                        {% if session['rol']==2 %} 
+                            <a href="{{ url_for('user.solicitar_impartir') }}"><button class="inscripcion">Impartir taller</button></a>
+                        {% else %}
+                            <a href="{{ url_for('user.validinfo') }}"><button class="inscripcion">Inscribirme a taller</button></a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -68,7 +72,11 @@
                         </div>
                     </div>
                     <div class="card-content">
-                        <a href="{{ url_for('user.validinfo', id=taller.id) }}"><button class="inscripcion">Incribirme a un taller</button></a>
+                        {% if session['rol']==2 %} 
+                            <a href="{{ url_for('user.solicitar_impartir') }}"><button class="inscripcion">Impartir taller</button></a>
+                        {% else %}
+                            <a href="{{ url_for('user.validinfo') }}"><button class="inscripcion">Inscribirme a taller</button></a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

@@ -25,7 +25,7 @@
             <ul class="nav_links">
                 <li><a href="{{ url_for('home.home') }}">Inicio</a></li>
                 <li><a href="https://goo.gl/maps/odsUZ2KrJsEKM49NA">Encuentranos</a></li>
-                <li><a href="{{ url_for('user.info_texcalac') }}">¿Sabias que?</a></li>
+                <li><a href="{{ url_for('home.info_texcalac') }}">¿Sabias que?</a></li>
                 <li><a href="#">Nuestros talleres</a></li>
                 {% if 'id' in session %}
                     <li><a href="{{ url_for('user.logout') }}">Cerrar sesión</a></li>
@@ -46,7 +46,7 @@
             <div class="overlay_content">
                 <a href="https://www.facebook.com/texcalacunido">Facebook</a>
                 <a href="https://goo.gl/maps/odsUZ2KrJsEKM49NA">Encuentranos</a>
-                <a href="">Texcalac</a>
+                <a href="{{ url_for('home.info_texcalac') }}">¿Sabias que?</a>
                 <a href="{{ url_for('user.login') }}">Iniciar sesión</a>
                 <a href="{{ url_for('user.register') }}">Registrarme</a>
             </div>

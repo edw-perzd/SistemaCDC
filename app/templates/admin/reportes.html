@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Solicitudes
+{% endblock %}
+
+{% block content %}
+<style>
+footer{
+    margin-top: 0;
+}
+</style>
+<main class="madmin">
+    <!-- cuerpo principal de la pagina-->
+    <div class="main-panel flex-box">
+        <div class="col-10 col-fixed">
+                <div class="nav nav-vertical">
+                <div class="">
+                    <h4 class="h4">Panel administrador</h4>
+                </div>
+                    <ul>
+                    <li><a class="a secselect" href="{{ url_for('admin.adminA') }}"><i class="material-icons">&#xe80c;</i> <span>Alumnos</span></a></li>
+                    <li><a class="a" href="{{ url_for('admin.adminP') }}"><i class="material-icons">&#xeb44;</i> <span>Profesores</span></a></li>
+                    <li><a class="a" href="{{ url_for('admin.adminT') }}"><i class="material-icons">&#xe7ee;</i> <span>Talleres</span></a></li>
+                    <li><a class="a" href="{{ url_for('admin.solicitudes') }}"><i class="material-icons">history_edu</i><span>Solicitudes</span></a></li>
+                    <li><a class="a" href="{{ url_for('admin.reportes') }}"><i class="material-icons">history_edu</i><span>Reportes</span></a></li>
+                    </ul>
+                </div>
+        </div>
+        <div class="col-90">   
+            <!---->
+            <div id="soli">
+              <div class="data-print center">
+                <div class="left row-padding">
+                      <h1 class="h1">Generar Reportes</h1>
+                </div>
+                <div class="panel-opciones">
+                    <div class="flex-box"> 
+                     <span>
+                       <form method="post">
+                         {{ form.csrf_token }}
+                         {{ form.fecha.label }}
+                         {{ form.fecha(class="in txt-form") }}
+                         {% if form.fecha.errors %}
+                             {% for error in form.fecha.errors %}
+                                 <p>{{ error }}</p>
+                             {% endfor %}
+                         {% endif %}
+       
+                         {{ form.submit(class="button h4") }}
+                       </form>
+                     </span>
+                    </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

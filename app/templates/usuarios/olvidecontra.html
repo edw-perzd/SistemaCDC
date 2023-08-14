@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Verificando
+{% endblock %}
+
+{% block content %}
+<style>
+    footer{
+        margin-top: 50px;
+    }
+  </style>
+    <h1 class="h1_rc">Recuperar contraseña</h1>
+
+    <div class="container_rc">
+        <h2 class="h2_rc">Completa los campos siguientes</h2>
+        <form class="form_rc" method="POST">
+            {{ form.csrf_token }}
+            <div class="form_correo">
+                {{ form.nombre.label }}
+                {{ form.nombre(autocomplete="off", placeholder="Ej. Juan", class="correo_rc") }}
+                {% if form.nombre.errors %}
+                    {% for error in form.nombre.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+                {{ form.aPaterno.label }}
+                {{ form.aPaterno(autocomplete="off", placeholder="Ej. Perez", class="correo_rc") }}
+                {% if form.aPaterno.errors %}
+                    {% for error in form.aPaterno.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+                {{ form.aMaterno.label }}
+                {{ form.aMaterno(autocomplete="off", placeholder="Ej. Lopez", class="correo_rc") }}
+                {% if form.aMaterno.errors %}
+                    {% for error in form.aMaterno.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+                {{ form.correoE.label }}
+                {{ form.correoE(autocomplete="off", placeholder="Ej. ejemplo@gmail.com", class="correo_rc") }}
+                {% if form.correoE.errors %}
+                    {% for error in form.correoE.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+                {{ form.telefono.label }}
+                {{ form.telefono(autocomplete="off", placeholder="000-000-0000",class="correo_rc") }}
+                {% if form.telefono.errors %}
+                    {% for error in form.telefono.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+                {{ form.contrasenia.label }}
+                {{ form.contrasenia(autocomplete="off", placeholder="**********", class="correo_rc") }}
+                {% if form.contrasenia.errors %}
+                    {% for error in form.contrasenia.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="rc_buttom">
+                <a class="salir" href="{{ url_for('home.home') }}">Regresar</a>
+                {{ form.submit(class="enviar_rc") }}
+            </div>
+        </form>
+    </div>
+{% endblock %}
