@@ -34,8 +34,7 @@ CREATE TABLE `administradores` (
   PRIMARY KEY (`id_admin`),
   UNIQUE KEY `id_admin` (`id_admin`),
   UNIQUE KEY `correoE_admin` (`correoE_admin`),
-  UNIQUE KEY `telefono_admin` (`telefono_admin`) USING HASH,
-  UNIQUE KEY `telefono_admin_2` (`telefono_admin`) USING HASH
+  UNIQUE KEY `telefono_admin` (`telefono_admin`) USING HASH
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
