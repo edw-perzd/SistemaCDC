@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
     <!--Enlaces-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!--Scripts-->
     <script type="text/javascript" src="{{ url_for('static', filename='js/nav.js') }}"></script>
@@ -26,7 +27,7 @@
                 <li><a href="{{ url_for('home.home') }}">Inicio</a></li>
                 <li><a href="https://goo.gl/maps/odsUZ2KrJsEKM49NA">Encuentranos</a></li>
                 <li><a href="{{ url_for('home.info_texcalac') }}">¿Sabias que?</a></li>
-                <li><a href="#">Nuestros talleres</a></li>
+                <li><a href="{{ url_for('home.info_talleres') }}">Nuestros talleres</a></li>
                 {% if 'id' in session %}
                     <li><a href="{{ url_for('user.logout') }}">Cerrar sesión</a></li>
                 </ul>

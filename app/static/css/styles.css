@@ -866,28 +866,16 @@ body{
 .cbp-mc-form input.cbp-mc-submit:hover { 
   background: #86437B; 
 }
-/*INFO TEXCA*/
-.bodycont{
-  font-family: 'Nunito Sans', sans-serif;
-  min-height: 100vh;
-  max-width: 100vw;
-  line-height: 1.4;
-  padding: 20px 40px;
-  
-  color: #ccc;
-}
-
 /**Información***/
 .bodycont{
   font-family: 'Nunito Sans', sans-serif;
-  min-height: 100vh;
-  max-width: 100vw;
-  line-height: 1.4;
-  padding: 20px 40px;
-  
-  color: #ccc;
+    min-height: 100vh;
+    max-width: 100vw;
+    line-height: 1.4;
+    padding: 20px 40px;
+    background-image: url(../images/fondochido.jpg);
+    color: #ccc;
 }
-
 .containerinf{
   max-width: 1200px;
 }
@@ -957,6 +945,117 @@ body{
   font-size: 20px;
   margin-bottom: 20px;
   columns: 3 25ch;
+}
+/***/
+/**Info Talleres**/
+.bodytal{
+  background-image: url(../images/fondochido1.jpg);
+  background-size: cover;  
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#principal{
+  width: 80%;
+  height: auto; overflow: hidden;
+
+  margin: 0 auto; 
+}
+
+#infoT{
+  width: 100%;
+  height: auto; overflow: hidden;
+
+  margin-top: 10px; 
+  float: left;
+}
+
+.post{
+  width: 96%;
+  height: auto; overflow: hidden;
+  padding: 7px;
+  background: #f1caeb;
+  border-left-style: solid;
+  border-left-width: 5px;
+  border-left-color: #da88cc;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #666565;
+  margin-bottom: 25px;
+}
+
+.post h2{
+  color: #b4309e;
+}
+
+#infoT .img_post{
+  width: 150px;
+  height: 100px;
+  float: left;
+  margin: 7px 7px 7px 0px;
+  padding: 5px;
+  border-radius: 15px;
+}
+
+#infoT .maestro{
+  font-family: 'Outfit', sans-serif;
+  color: #b4309e;
+}
+
+#infoT .infT{
+  font-size: 16px;
+  color: black;
+  padding: 5px;
+}
+
+#infoT .Ctalleres{
+  background: #b4309e;
+  color: #fff;
+  border: 0px;
+  padding: 5px;
+  text-decoration: none;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+#infoT .Ctalleres:hover{
+  background: #f387ee;
+  color: #a81784;
+}
+
+#sidebar{
+  float: right;
+  width: 28%;
+
+  height: auto; overflow: hidden;
+  background-color: #da88cc;
+  border-radius: 10px 10px 0 0;
+}
+
+#buscar input[type="text"]{
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 5px #ccc inset;
+  padding: 10px 4px;
+  border-radius: 10px;
+  width: 70%;
+  margin-left: 4px;
+  margin-bottom: 4px;
+}
+
+#buscar .bb{
+  border: 0px;
+  color: #ffffff;
+  background: #a81784;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.encabezado-sidebar{
+  width: 100%;
+  height: 35px;
+  background: #a12ba1;
+  text-align: center;
+  font-size: 19px;
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 10px;
 }
 /***/
 

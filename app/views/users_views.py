@@ -62,16 +62,18 @@ def mytaller(page=1):
             correoE = session.get('correoE')
             talleresm = Toma.get_talleres_by_correo(correoE, limit=2, page=page)
             tallerest = Toma.get_toma_by_correo(correoE)
-            for tal in tallerest:
-                total_talleresa +=1
+            if tallerest:
+                for tal in tallerest:
+                    total_talleresa +=1
             pagess = math.ceil(total_talleresa / limit)
             return render_template('usuarios/talleres.html', talleres=talleresm, pages=pagess)
         
         elif session.get('rol') == 2:
             talleresp = Asignado.get_talleres_by_correo(session.get('correoE'), limit=2, page=page)
             talleres = Asignado.get_asign_by_correo(session.get('correoE'))
-            for tal in talleres:
-                total_talleres +=1
+            if talleres:
+                for tal in talleres:
+                    total_talleres +=1
             pages = math.ceil(total_talleres / limit)
             return render_template('usuarios/talleres.html', talleres=talleresp, pages=pages)
         else:

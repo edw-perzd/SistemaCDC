@@ -10,3 +10,7 @@ def home():
 @home_views.route("/home/info_texcalac")
 def info_texcalac():
     return render_template('home/infoTexca.html')
+
+@home_views.route("/home/info_talleres")
+def info_talleres():
+    return render_template('home/infotalleres.html')
