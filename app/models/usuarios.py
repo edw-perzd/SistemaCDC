@@ -475,7 +475,26 @@ class Toma:
             return id
 
     @staticmethod
-    def get_talleres_by_correo(correoE):
+    def get_talleres_by_correo(correoE, limit=2, page=1):
+        offset = limit * page - limit
+        toma = []
+        with mydb.cursor(dictionary=True) as cursor:
+            csql = f"SELECT id_alumno FROM alumnos WHERE correoE_alumno = '{ correoE }'"
+            cursor.execute(csql)
+            result = cursor.fetchone()
+            if result:
+                id = result['id_alumno']
+                sql = f'SELECT toma.*, talleres.*, alumnos.* FROM toma, talleres, alumnos WHERE toma.id_alumno = { id } AND toma.id_taller = talleres.id_taller AND toma.id_alumno = alumnos.id_alumno LIMIT { limit } OFFSET { offset }'
+                cursor.execute(sql)
+                result = cursor.fetchall()
+                if result:
+                    for taller in result:
+                        if taller['fechaInscripcion'] != None:
+                            toma.append(Toma(taller['id_alumno'], taller['nombre_alumno'], taller['aPaterno_alumno'], taller['aMaterno_alumno'], taller['correoE_alumno'], taller['telefono_alumno'], taller['edad_alumno'], taller['id_taller'], taller['nombre_taller'], taller['descrip_taller'], taller['categoria_taller'], taller['fechaInscripcion']))
+                    return toma
+                return None
+    @staticmethod
+    def get_toma_by_correo(correoE):
         toma = []
         with mydb.cursor(dictionary=True) as cursor:
             csql = f"SELECT id_alumno FROM alumnos WHERE correoE_alumno = '{ correoE }'"

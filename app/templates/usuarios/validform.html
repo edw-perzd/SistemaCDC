@@ -10,10 +10,13 @@
         margin-top: 50px;
     }
 </style>
-    <h1 class="h1_rc">Solicitud de inscripción a taller</h1>
-
+    <h1 class="h1_rc"></h1> <!--Importante no quitar-->
     <div class="container_rc">
-        <h2 class="h2_rc">Ingresa tu correo electronico</h2>
+        {% if session['rol'] == 1 %}
+            <h2 class="h2_rc">Solicitud de inscripción a taller</h2>
+        {% else %}            
+            <h2 class="h2_rc">Solicitud para impartir taller</h2>
+        {% endif %}
 
         <form class="form_rc" method="POST">
             {{ form.csrf_token }}

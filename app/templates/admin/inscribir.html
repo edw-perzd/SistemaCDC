@@ -31,7 +31,21 @@
         <div class="col-90">
             <div class="data-print center">
                 <div class="left row-padding">
-                    <center><h1 class="h1">Inscribir a {{ user.nombre }} a un taller</h1></center>
+                    <center>
+                        {% if user.rol == 1 %}
+                            {% if tf == 1 %}
+                                <h1 class="h1">Inscribir a {{ user.nombre }} a un taller</h1>                                
+                            {% else %}                                
+                                <h1 class="h1">Dar de baja a {{ user.nombre }} de un taller</h1>                                
+                            {% endif %}
+                        {% else %}
+                            {% if tf == 1 %}
+                                <h1 class="h1">Asignar a {{ user.nombre }} a un taller</h1>                                
+                            {% else %}                                
+                                <h1 class="h1">Revocar a {{ user.nombre }} de un taller</h1>                                
+                            {% endif %}
+                        {% endif %}
+                    </center>
                     <form class="cbp-mc-form" method="POST">
                         {{ form.csrf_token }}
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">

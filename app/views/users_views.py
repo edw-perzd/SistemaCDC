@@ -6,9 +6,8 @@ from models.talleres import Taller, Asignado
 
 from forms.usuarios_forms import LoginForm, RegisterForm, ElegirTaller, OlvideContra, ProfileForm
 
-#from utils.file_handler import save_image
-
 import datetime
+import math
 
 
 user_views = Blueprint('user', __name__)
@@ -53,16 +52,28 @@ def login():
     return render_template('usuarios/Login.html', form=form)
 
 @user_views.route("/home/mytaller/")
-def mytaller():
+@user_views.route("/home/mytaller/<int:page>", methods=['GET'])
+def mytaller(page=1):
     if session.get('rol') != 3:
+        limit = 2
+        total_talleresa = 0
+        total_talleres = 0
         if session.get('rol') == 1:
             correoE = session.get('correoE')
-            talleres = Toma.get_talleres_by_correo(correoE)
-
-            return render_template('usuarios/talleres.html', talleres=talleres)
+            talleresm = Toma.get_talleres_by_correo(correoE, limit=2, page=page)
+            tallerest = Toma.get_toma_by_correo(correoE)
+            for tal in tallerest:
+                total_talleresa +=1
+            pagess = math.ceil(total_talleresa / limit)
+            return render_template('usuarios/talleres.html', talleres=talleresm, pages=pagess)
+        
         elif session.get('rol') == 2:
-            talleres = Asignado.get_talleres_by_correo(session.get('correoE'))
-            return render_template('usuarios/talleres.html', talleres=talleres)
+            talleresp = Asignado.get_talleres_by_correo(session.get('correoE'), limit=2, page=page)
+            talleres = Asignado.get_asign_by_correo(session.get('correoE'))
+            for tal in talleres:
+                total_talleres +=1
+            pages = math.ceil(total_talleres / limit)
+            return render_template('usuarios/talleres.html', talleres=talleresp, pages=pages)
         else:
             abort(401)
     else:
@@ -167,7 +178,7 @@ def olvidcontra():
             user.contrasenia = contrasenia
             user.cambio_c()
 
-            return redirect(url_for('user.login'))
+            flash('Se cambió la contraseña')
 
     return render_template('usuarios/olvidecontra.html', form=form)
 

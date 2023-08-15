@@ -67,7 +67,7 @@ def inscribir(id):
     if session.get('rol') == 3:
         form = InscribirAlumnos()
         tal = Taller.get_all_tal()
-
+        tf=1
         talleres = [(-1, '')]
         for tall in tal:
             talleres.append((tall.id, tall.nombre))
@@ -91,7 +91,7 @@ def inscribir(id):
 
                     inscripcion.guardar()
                     return redirect(url_for('admin.adminA'))
-        return render_template('admin/inscribir.html', form=form, user=user)
+        return render_template('admin/inscribir.html', form=form, user=user, tf=tf)
     else:
         abort(404)
 
@@ -102,7 +102,7 @@ def unsubscribe(id):
         tal = Toma.get_talleres_by_id(id)
 
         if tal is None: abort(404)
-
+        tf=2
         talleres = [(-1, '')]
         for tall in tal:
             talleres.append((tall.id_taller, tall.nombre_taller))
@@ -122,7 +122,7 @@ def unsubscribe(id):
                 valid.eliminar()
                 
                 return redirect(url_for('admin.adminA'))
-        return render_template('admin/inscribir.html', form=form, user=user)
+        return render_template('admin/inscribir.html', form=form, user=user, tf=tf)
     else:
         abort(404)
 
@@ -211,7 +211,7 @@ def deassign(id):
         for tall in tal:
             talleres.append((tall.id, tall.nombre))
         form.taller_id.choices = talleres
-        user = Usuario.__get__(id, 1)
+        user = Usuario.__get__(id, 2)
         if user is None:
             abort(404)
 

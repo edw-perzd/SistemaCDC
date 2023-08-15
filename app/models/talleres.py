@@ -4,12 +4,11 @@ from .db import get_connection
 mydb = get_connection()
 
 class Taller():
-    def __init__(self, id, nombre, descrip, categoria, id_admin, fechaRegistro, id_profesor='', fechaAsignacion=None):
+    def __init__(self, id, nombre, descrip, categoria, fechaRegistro, id_profesor='', fechaAsignacion=None):
         self.id = id
         self.nombre = nombre
         self.descrip = descrip
         self.categoria = categoria
-        self.id_admin = id_admin
         self.fechaRegistro = fechaRegistro
         self.id_profesor = id_profesor
         self.fechaAsignacion = fechaAsignacion
@@ -18,17 +17,17 @@ class Taller():
         # Create a New Object in DB
         if self.id is None:
             with mydb.cursor() as cursor:
-                sql = "INSERT INTO talleres(nombre_taller, descrip_taller, categoria_taller, id_admin, id_profesor, fechaRegistro_taller) VALUES(%s, %s, %s, %s, %s, %s)"
-                val = (self.nombre, self.descrip, self.categoria, self.id_admin, self.id_profesor, self.fechaRegistro)
+                sql = "INSERT INTO talleres(nombre_taller, descrip_taller, categoria_taller, id_profesor, fechaRegistro_taller) VALUES(%s, %s, %s, %s, %s, %s)"
+                val = (self.nombre, self.descrip, self.categoria, self.id_profesor, self.fechaRegistro)
                 cursor.execute(sql, val)
                 mydb.commit()
                 self.id = cursor.lastrowid
                 return self.id
         else:
             with mydb.cursor() as cursor:
-                sql = 'UPDATE talleres SET nombre_taller = %s, descrip_taller = %s, categoria_taller = %s, id_admin = %s, id_profesor = %s, fechaRegistro_taller = %s '
+                sql = 'UPDATE talleres SET nombre_taller = %s, descrip_taller = %s, categoria_taller = %s, id_profesor = %s, fechaRegistro_taller = %s '
                 sql += 'WHERE id_taller = %s'
-                val = (self.nombre, self.descrip, self.categoria, self.id_admin, self.id_profesor, self.fechaRegistro, self.id)
+                val = (self.nombre, self.descrip, self.categoria, self.id_profesor, self.fechaRegistro, self.id)
                 cursor.execute(sql, val)
                 mydb.commit()
                 return self.id
@@ -73,7 +72,7 @@ class Taller():
             taller = cursor.fetchone()
 
             if taller:
-                valid = Taller(id_taller, taller['nombre_taller'], taller['descrip_taller'], taller['categoria_taller'], taller['id_admin'], taller['fechaRegistro_taller'], id_profesor, taller['fechaAsignacion_taller'])
+                valid = Taller(id_taller, taller['nombre_taller'], taller['descrip_taller'], taller['categoria_taller'], taller['fechaRegistro_taller'], id_profesor, taller['fechaAsignacion_taller'])
                 return valid
             else:
                 return None
@@ -87,7 +86,7 @@ class Taller():
             cursor.execute(sql)
             result = cursor.fetchall()
             for taller in result:
-                talleres.append(Taller(id=taller["id_taller"], nombre=taller["nombre_taller"], descrip=taller["descrip_taller"], categoria=taller["categoria_taller"], id_admin=taller["id_admin"], id_profesor=taller["id_profesor"], fechaRegistro=taller["fechaRegistro_taller"])
+                talleres.append(Taller(id=taller["id_taller"], nombre=taller["nombre_taller"], descrip=taller["descrip_taller"], categoria=taller["categoria_taller"], id_profesor=taller["id_profesor"], fechaRegistro=taller["fechaRegistro_taller"])
                 )
             return talleres
 
@@ -100,7 +99,7 @@ class Taller():
             cursor.execute(sql)
             result = cursor.fetchall()
             for taller in result:
-                talleres.append(Taller(id=taller["id_taller"], nombre=taller["nombre_taller"], descrip=taller["descrip_taller"], categoria=taller["categoria_taller"], id_admin=taller["id_admin"], id_profesor=taller["id_profesor"], fechaRegistro=taller["fechaRegistro_taller"])
+                talleres.append(Taller(id=taller["id_taller"], nombre=taller["nombre_taller"], descrip=taller["descrip_taller"], categoria=taller["categoria_taller"], id_profesor=taller["id_profesor"], fechaRegistro=taller["fechaRegistro_taller"])
                 )
             return talleres
         
@@ -113,7 +112,7 @@ class Taller():
             taller = cursor.fetchone()
 
             if taller:
-                taller = Taller(id, taller["nombre_taller"], taller["descrip_taller"], taller["categoria_taller"], taller["id_admin"], taller["fechaRegistro_taller"], taller["id_profesor"], taller['fechaAsignacion_taller'])
+                taller = Taller(id, taller["nombre_taller"], taller["descrip_taller"], taller["categoria_taller"], taller["fechaRegistro_taller"], taller["id_profesor"], taller['fechaAsignacion_taller'])
                 return taller
             
             return None
@@ -128,7 +127,7 @@ class Taller():
             if result:
                 for taller in result:
                     if taller['fechaAsignacion_taller'] != None:
-                        talleres.append(Taller(taller['id_taller'], taller['nombre_taller'], taller['descrip_taller'], taller['categoria_taller'], taller['id_admin'], taller['fechaRegistro_taller'], id, taller['fechaAsignacion_taller']))
+                        talleres.append(Taller(taller['id_taller'], taller['nombre_taller'], taller['descrip_taller'], taller['categoria_taller'], taller['fechaRegistro_taller'], id, taller['fechaAsignacion_taller']))
                 return talleres
             else:
                 return None
@@ -140,7 +139,7 @@ class Taller():
             cursor.execute(sql)
             taller = cursor.fetchone()
             if taller:
-                tal = Taller(taller['id_taller'], taller['nombre_taller'], ['descrip_taller'], taller['categoria_taller'], taller['id_admin'], taller['fechaRegistro_taller'], id_profesor, taller['fechaAsignacion_taller'])
+                tal = Taller(taller['id_taller'], taller['nombre_taller'], ['descrip_taller'], taller['categoria_taller'], taller['fechaRegistro_taller'], id_profesor, taller['fechaAsignacion_taller'])
                 return tal
             return None
 
@@ -153,7 +152,7 @@ class Taller():
             cursor.execute(sql)
             result = cursor.fetchall()
             for taller in result:
-                talleres.append(Taller(id=taller["id_taller"], nombre=taller["nombre_taller"], descrip=taller["descrip_taller"], categoria=taller["categoria_taller"], id_admin=taller["id_admin"], id_profesor=taller["id_profesor"], fechaRegistro=taller["fechaRegistro_taller"])
+                talleres.append(Taller(id=taller["id_taller"], nombre=taller["nombre_taller"], descrip=taller["descrip_taller"], categoria=taller["categoria_taller"], id_profesor=taller["id_profesor"], fechaRegistro=taller["fechaRegistro_taller"])
                 )
             return talleres
         
@@ -165,7 +164,7 @@ class Taller():
             cursor.execute(sql)
             result = cursor.fetchall()
             for taller in result:
-                talleres.append(Taller(id=taller["id_taller"], nombre=taller["nombre_taller"], descrip=taller["descrip_taller"], categoria=taller["categoria_taller"], id_admin=taller["id_admin"], id_profesor=taller["id_profesor"], fechaRegistro=taller["fechaRegistro_taller"])
+                talleres.append(Taller(id=taller["id_taller"], nombre=taller["nombre_taller"], descrip=taller["descrip_taller"], categoria=taller["categoria_taller"], id_profesor=taller["id_profesor"], fechaRegistro=taller["fechaRegistro_taller"])
                 )
             return talleres
 
@@ -179,7 +178,7 @@ class Taller():
     
 class Asignado:
 
-    def __init__(self, id_taller, nombre_taller, id_profesor, nombre_profesor, aPaterno_profesor, aMaterno_profesor, correoE_profesor, telefono_profesor, edad_profesor, fechaAsignacion=''):
+    def __init__(self, id_taller, nombre_taller, id_profesor, nombre_profesor, aPaterno_profesor, aMaterno_profesor, correoE_profesor, telefono_profesor, edad_profesor, fechaAsignacion='', descrip_taller=''):
         self.id_taller = id_taller
         self.nombre_taller = nombre_taller
         self.id_profesor = id_profesor
@@ -190,6 +189,7 @@ class Asignado:
         self.telefono_profesor = telefono_profesor
         self.edad_profesor = edad_profesor
         self.fechaAsignacion = fechaAsignacion
+        self.descrip_taller = descrip_taller
         
     @staticmethod
     def solicitudes_prof():
@@ -231,7 +231,22 @@ class Asignado:
                 return None  
 
     @staticmethod
-    def get_talleres_by_correo(correoE):
+    def get_talleres_by_correo(correoE, limit=2, page=1):
+        offset = limit * page - limit
+        talleres = []
+        with mydb.cursor(dictionary=True) as cursor:
+            sql = f"SELECT talleres.*, profesores.* FROM talleres, profesores WHERE profesores.correoE_profesor = '{ correoE }' AND talleres.id_profesor = profesores.id_profesor LIMIT { limit } OFFSET { offset }"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            if result:
+                for taller in result:
+                    if taller['fechaAsignacion_taller'] != None:
+                        talleres.append(Asignado(taller['id_taller'], taller['nombre_taller'], taller['id_profesor'], taller['nombre_profesor'], taller['aPaterno_profesor'], taller['aMaterno_profesor'], taller['correoE_profesor'], taller['telefono_profesor'], taller['edad_profesor'], None, taller['descrip_taller']))
+                return talleres
+            else:
+                return None  
+    @staticmethod
+    def get_asign_by_correo(correoE):
         talleres = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = f"SELECT talleres.*, profesores.* FROM talleres, profesores WHERE profesores.correoE_profesor = '{ correoE }' AND talleres.id_profesor = profesores.id_profesor"
@@ -240,7 +255,7 @@ class Asignado:
             if result:
                 for taller in result:
                     if taller['fechaAsignacion_taller'] != None:
-                        talleres.append(Asignado(taller['id_taller'], taller['nombre_taller'], taller['id_profesor'], taller['nombre_profesor'], taller['aPaterno_profesor'], taller['aMaterno_profesor'], taller['correoE_profesor'], taller['telefono_profesor'], taller['edad_profesor']))
+                        talleres.append(Asignado(taller['id_taller'], taller['nombre_taller'], taller['id_profesor'], taller['nombre_profesor'], taller['aPaterno_profesor'], taller['aMaterno_profesor'], taller['correoE_profesor'], taller['telefono_profesor'], taller['edad_profesor'], None, taller['descrip_taller']))
                 return talleres
             else:
                 return None  
