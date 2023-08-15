@@ -327,7 +327,15 @@ class Usuario():
                 if user != None:
                     rol = 2
                     return Usuario.__get__(user["id_profesor"], rol)
-                return None
+                else:
+                    sql = "SELECT * FROM administradores WHERE nombre_admin = %s AND aPaterno_admin = %s AND aMaterno_admin = %s AND correoE_admin = %s AND telefono_admin = %s"
+                    val = (nombre, aPaterno, aMaterno, correoE, telefono)
+                    cursor.execute(sql, val)
+                    user = cursor.fetchone()
+                    if user != None:
+                        rol = 3
+                        return Usuario.__get__(user["id_admin"], rol)
+                    return None
 
     @staticmethod
     def obtener_correo(correoE):

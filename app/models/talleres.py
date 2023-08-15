@@ -17,7 +17,7 @@ class Taller():
         # Create a New Object in DB
         if self.id is None:
             with mydb.cursor() as cursor:
-                sql = "INSERT INTO talleres(nombre_taller, descrip_taller, categoria_taller, id_profesor, fechaRegistro_taller) VALUES(%s, %s, %s, %s, %s, %s)"
+                sql = "INSERT INTO talleres(nombre_taller, descrip_taller, categoria_taller, id_profesor, fechaRegistro_taller) VALUES(%s, %s, %s, %s, %s)"
                 val = (self.nombre, self.descrip, self.categoria, self.id_profesor, self.fechaRegistro)
                 cursor.execute(sql, val)
                 mydb.commit()

@@ -173,6 +173,7 @@ def asignarT(id):
         form = AsignarTaller()
         tal = Taller.get_all_tal()
 
+        tf=1
         talleres = [(-1, '')]
         for tall in tal:
             talleres.append((tall.id, tall.nombre))
@@ -191,11 +192,11 @@ def asignarT(id):
                     flash('Este taller ya esta asignado o el profesor esta en espera de ser asignado a este taller')
                 else:
                     fecha_actual = datetime.datetime.now().date()
-                    asignar = Taller(taller_id, None, None, None, None, None, id, fecha_actual)
+                    asignar = Taller(taller_id, None, None, None, None, id, fecha_actual)
                     
                     asignar.asignar()
                     return redirect(url_for('admin.adminP'))
-        return render_template('admin/inscribir.html', form=form, user=user)
+        return render_template('admin/inscribir.html', form=form, user=user, tf=tf)
     else:
         abort(404)
 
@@ -206,7 +207,7 @@ def deassign(id):
         tal = Taller.get_talleres_by_id(id)
 
         if tal is None: abort(404)
-
+        tf=2
         talleres = [(-1, '')]
         for tall in tal:
             talleres.append((tall.id, tall.nombre))
@@ -226,7 +227,7 @@ def deassign(id):
                 valid.deassign()
 
                 return redirect(url_for('admin.adminA'))
-        return render_template('admin/inscribir.html', form=form, user=user)
+        return render_template('admin/inscribir.html', form=form, user=user, tf=tf)
     else:
         abort(404)
 
@@ -277,7 +278,7 @@ def crearTaller():
             
             fecha_actual = datetime.datetime.now().date()
 
-            taller = Taller(None, nombre, descrip, categoria, None, fecha_actual, None)
+            taller = Taller(None, nombre, descrip, categoria, fecha_actual, None, None)
             taller.guardar()
             return redirect(url_for('admin.adminT'))
         return render_template('admin/crearT.html', form=form)
