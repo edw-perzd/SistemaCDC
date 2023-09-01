@@ -40,16 +40,23 @@
             <a href="{{ url_for('user.login') }}" class="btn"><button>Iniciar sesión</button></a>
                 {% endif %}
         <!--Esta parte es del script-->
-        <a onclick="openNav()" class="menu" href="#"><button>Menu</button></a>
+        <a onclick="openNav()" class="menu" href="#"><button>{% if 'id' in session %} {{ session['nombre'] }}</button></a>
+        {% else %}Menu</button></a>{% endif %} 
         
         <div class="overlay" id="menu_rt">
             <a onclick="closeNav()" class="close">&times;</a>
             <div class="overlay_content">
-                <a href="https://www.facebook.com/texcalacunido">Facebook</a>
+                {% if 'id' in session %}
+                    <a href="{{ url_for('user.logout') }}">Cerrar sesión</a>
+                </ul>
+                {% else %}
+                    <a href="{{ url_for('user.login') }}">Iniciar sesión</a>
+                    <a href="{{ url_for('user.register') }}">Registrarme</a>
+                {% endif %}
+                <a href="{{ url_for('home.info_talleres') }}">Nuestros talleres</a>
                 <a href="https://goo.gl/maps/odsUZ2KrJsEKM49NA">Encuentranos</a>
                 <a href="{{ url_for('home.info_texcalac') }}">¿Sabias que?</a>
-                <a href="{{ url_for('user.login') }}">Iniciar sesión</a>
-                <a href="{{ url_for('user.register') }}">Registrarme</a>
+                <a href="https://www.facebook.com/texcalacunido">Facebook</a>
             </div>
         </div>
     </header>

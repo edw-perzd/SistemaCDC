@@ -38,7 +38,6 @@ class Taller():
             cursor.execute(sql)
             mydb.commit()
             return self.id
-
     def asignar(self):
         if self.fechaAsignacion is None:
             with mydb.cursor() as cursor:
@@ -264,7 +263,7 @@ class Asignado:
     def get_talleres_by_fecha(fecha):
         talleres = []
         with mydb.cursor(dictionary=True) as cursor:
-            sql = f"SELECT talleres.*, profesores.* FROM talleres, profesores talleres.fechaAsignacion_taller >= '{ fecha }' AND talleres.id_profesor = profesores.id_profesor"
+            sql = f"SELECT talleres.*, profesores.* FROM talleres, profesores WHERE talleres.fechaAsignacion_taller >= '{ fecha }' AND talleres.id_profesor = profesores.id_profesor"
             cursor.execute(sql)
             result = cursor.fetchall()
             if result:
