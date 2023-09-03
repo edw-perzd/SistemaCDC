@@ -34,22 +34,26 @@ def register():
 
 @user_views.route("/login/", methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        correoE = form.correoE.data
-        contrasenia = form.contrasenia.data
-        user = Usuario.obtener_por_pass(correoE, contrasenia)
-        if not user:
-            flash('Verifica tus datos')
-        else:
-            session['id'] = user.id
-            session['nombre'] = user.nombre
-            session['aPaterno'] = user.aPaterno
-            session['aMaterno'] = user.aMaterno
-            session['correoE'] = user.correoE
-            session['rol'] = user.rol
-            return redirect(url_for('home.home'))
-    return render_template('usuarios/Login.html', form=form)
+    if 'id' in session:
+        return redirect(url_for('home.home'))
+    else:
+        form = LoginForm()
+        if form.validate_on_submit():
+            correoE = form.correoE.data
+            contrasenia = form.contrasenia.data
+            user = Usuario.obtener_por_pass(correoE, contrasenia)
+            if not user:
+                flash('Verifica tus datos')
+            else:
+                session['id'] = user.id
+                session['nombre'] = user.nombre
+                session['aPaterno'] = user.aPaterno
+                session['aMaterno'] = user.aMaterno
+                session['correoE'] = user.correoE
+                session['rol'] = user.rol
+                return redirect(url_for('home.home'))
+        return render_template('usuarios/Login.html', form=form)
+    
 
 @user_views.route("/home/mytaller/")
 @user_views.route("/home/mytaller/<int:page>", methods=['GET'])

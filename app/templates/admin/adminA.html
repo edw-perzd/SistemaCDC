@@ -95,7 +95,7 @@
                       <td>
                         {% for taller in talleres %}
                         {% if alumno.id == taller.id_alumno %}
-                          {{ taller.nombre_taller }}
+                          + {{ taller.nombre_taller }}. <br>
                         {% endif %}
                         {% endfor %}
                       </td>
