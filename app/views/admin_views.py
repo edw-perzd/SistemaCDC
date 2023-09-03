@@ -474,6 +474,63 @@ def delete(id, rol):
     else:
         abort(404)
 
+@admin_views.route('/admin/profile/update_data', methods=['POST', 'GET'])
+def update_data():
+    if session.get('rol') == 3:
+        form = ActualizarUsuario()
+        user = Usuario.get_usu_by_correo(session.get('correoE'))
+        if not user: abort (404)
+        if form.validate_on_submit():
+            user.nombre = form.nombre.data
+            user.aPaterno = form.aPaterno.data
+            user.aMaterno = form.aMaterno.data
+            correoE = form.correoE.data
+            telefono = form.telefono.data
+            user.edad = form.edad.data
+            
+            if correoE == user.correoE:
+                if telefono == user.telefono:
+                    user.correoE = correoE
+                    user.telefono = telefono
+                    user.guardar()
+                else:
+                    validc = Usuario.check_phone(telefono)
+                    if validc is None:
+                        user.correoE = correoE
+                        user.telefono = telefono
+                        user.guardar()
+                    else:
+                        flash('Este número de teléfono ya existe')
+            else:
+                validt = Usuario.check_email(correoE)
+                if validt is None:
+                    if telefono == user.telefono:
+                        user.correoE = correoE
+                        user.telefono = telefono
+                        user.guardar()
+                    else:
+                        validc = Usuario.check_phone(telefono)
+                        if validc is None:
+                            user.correoE = correoE
+                            user.telefono = telefono
+                            user.guardar()
+                        else:
+                            flash('Este número de teléfono ya existe')     
+                else:
+                    flash('Este correo electrónico ya existe')
+                
+
+            return render_template('admin/update_dataA.html', form=form, user=user)
+        form.nombre.data = user.nombre
+        form.aPaterno.data = user.aPaterno
+        form.aMaterno.data = user.aMaterno
+        form.correoE.data = user.correoE
+        form.telefono.data = user.telefono
+        form.edad.data = user.edad
+        return render_template('admin/update_dataA.html', form=form, user=user)
+    else:
+        abort(404)
+
 @admin_views.route('/admin/reportes/alumnos', methods=['POST', 'GET'])
 def reportes():
 

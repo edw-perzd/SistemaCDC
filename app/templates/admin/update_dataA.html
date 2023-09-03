@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Actualizar mi información
+{% endblock %}
+
+{% block content %}
+<style>
+    footer{
+        margin-top: 100px;
+    }
+</style>
+<div class="data-print center">
+    <div class="left row-padding">
+        <center><h1 class="h1">Actualizar mi información</h1></center>
+        <form class="cbp-mc-form" method="POST">
+            {{ form.csrf_token }}
+            <div class="cbp-mc-column">
+                {{ form.nombre.label }}
+                {{ form.nombre(autocomplete="off", placeholder="Juan") }}
+                {% if form.nombre.errors %}
+                    {% for error in form.nombre.errors %}
+                    <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+                {{ form.aPaterno.label }}
+                {{ form.aPaterno(autocomplete="off", placeholder="Perez") }}
+                {% if form.aPaterno.errors %}
+                    {% for error in form.aPaterno.errors %}
+                    <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div> 
+            <div class="cbp-mc-column">
+                {{ form.aMaterno.label }}
+                {{ form.aMaterno(autocomplete="off", placeholder="P.") }}
+                {% if form.aMaterno.errors %}
+                    {% for error in form.aMaterno.errors %}
+                    <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+                {{ form.correoE.label }}
+                {{ form.correoE(autocomplete="off", placeholder="cdctexcalac2022@gmail.com") }}
+                {% if form.correoE.errors %}
+                    {% for error in form.correoE.errors %}
+                    <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="cbp-mc-column">
+                {{ form.telefono.label }}
+                {{ form.telefono(autocomplete="off", placeholder="241-118-2658") }}
+                {% if form.telefono.errors %}
+                    {% for error in form.telefono.errors %}
+                    <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+                {{ form.edad.label }}
+                {{ form.edad() }}
+                {% if form.edad.errors %}
+                    {% for error in form.edad.errors %}
+                    <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="cbp-mc-submit-wrap">
+                {{ form.submit(class="cbp-mc-submit") }}
+            </div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages%}
+                    {% for message in messages %}
+                        <div class="alert-log">
+                            <p>{{ message }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </form>
+    </div>
+</div>
+{% endblock %}

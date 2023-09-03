@@ -9,8 +9,8 @@ class RegisterForm(FlaskForm):
     aPaterno = StringField('Apellido paterno', validators=[DataRequired(), Length(min=3, max=30, message='Este campo debe contener al menos 3 letras')])
     aMaterno = StringField('Apellido materno', validators=[DataRequired(), Length(min=3, max=30, message='Este campo debe contener al menos 3 letras')])
     correoE = EmailField('Correo electrónico', validators=[DataRequired(), Email(message='Este campo debe contener un @ y al menos un punto')])
-    contrasenia = PasswordField('Crea una contraseña', validators=[DataRequired(), EqualTo('contrasenia_confirm', message="Las contraseñas deben coincidir"), Length(min=8, max=15, message='La contraseña debe contener de 8 a 10 digitos')])
-    contrasenia_confirm = PasswordField('Confirma tu contraseña', validators=[DataRequired(), Length(min=8, max=15)])
+    contrasenia = PasswordField('Crea una contraseña', validators=[DataRequired(), EqualTo('contrasenia_confirm', message="Las contraseñas deben coincidir"), Length(min=8, max=10, message='La contraseña debe contener de 8 a 10 digitos')])
+    contrasenia_confirm = PasswordField('Confirma tu contraseña', validators=[DataRequired(), Length(min=8, max=10)])
     telefono = TelField('Número de telefono', validators=[DataRequired(), Length(min=10, max=10, message='El número de teléfono debe contener al menos 10 digitos')])
     edad = IntegerField('Edad', validators=[DataRequired()])
     rol = SelectField('Selecciona tu rol', choices=[('1', 'Alumno'), ('2', 'Profesor')])
@@ -36,7 +36,7 @@ class CrearUsuario(FlaskForm):
     aPaterno = StringField('Apellido paterno', validators=[DataRequired(), Length(min=3, max=30, message='Este campo debe contener al menos 3 letras')])
     aMaterno = StringField('Apellido materno', validators=[DataRequired(), Length(min=3, max=30, message='Este campo debe contener al menos 3 letras')])
     correoE = EmailField('Correo electrónico', validators=[DataRequired(), Email(message='Este campo debe contener un @ y al menos un punto')])
-    contrasenia = PasswordField('Contraseña provisional', validators=[DataRequired(), EqualTo('contrasenia_confirm', message="Las contraseñas deben coincidir"), Length(min=8, max=15, message='La contraseña debe contener de 8 a 10 digitos')])
+    contrasenia = PasswordField('Contraseña provisional', validators=[DataRequired(), EqualTo('contrasenia_confirm', message="Las contraseñas deben coincidir"), Length(min=8, max=10, message='La contraseña debe contener de 8 a 10 digitos')])
     contrasenia_confirm = PasswordField('Confirmar contraseña', validators=[DataRequired(),])
     telefono = TelField('Número de telefono', validators=[DataRequired(), Length(min=10, max=10, message='El número de teléfono debe contener al menos 10 digitos')])
     edad = IntegerField('Edad', validators=[DataRequired()])
@@ -63,7 +63,7 @@ class ActualizarUsuario(FlaskForm):
 
         
 class ProfileForm(FlaskForm):
-    contrasenia = PasswordField('Cambiar contraseña', validators=[DataRequired(), EqualTo('contrasenia_confirm', message="Las contraseñas deben coincidir"), Length(min=8, max=15, message='La contraseña debe contener de 8 a 10 digitos')])
+    contrasenia = PasswordField('Cambiar contraseña', validators=[DataRequired(), EqualTo('contrasenia_confirm', message="Las contraseñas deben coincidir"), Length(min=8, max=10, message='La contraseña debe contener de 8 a 10 digitos')])
     contrasenia_confirm = PasswordField('Confirmar contraseña', validators=[DataRequired(),])
     submit = SubmitField('Guardar')
 
@@ -105,7 +105,7 @@ class OlvideContra(FlaskForm):
     aMaterno = StringField('Ingresa tu apellido materno', validators=[DataRequired(), Length(min=3, max=30, message='Este campo debe contener al menos 3 letras')])
     correoE = EmailField('Correo electrónico', validators=[DataRequired(), Email(message='Este campo debe contener un @ y al menos un punto')])
     telefono = TelField('Número de telefono', validators=[DataRequired(), Length(min=10, max=10, message='El número de teléfono debe contener al menos 10 digitos')])
-    contrasenia = PasswordField('Ingresa tu nueva contraseña', validators=[DataRequired(), Length(min=8, max=15, message='La contraseña debe contener de 8 a 10 digitos')])
+    contrasenia = PasswordField('Ingresa tu nueva contraseña', validators=[DataRequired(), Length(min=8, max=10, message='La contraseña debe contener de 8 a 10 digitos')])
     submit = SubmitField('Cambiar contraseña')
 
 class BuscarUsuario(FlaskForm):

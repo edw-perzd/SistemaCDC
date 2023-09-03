@@ -999,16 +999,16 @@ body{
 /***/
 /**Info Talleres**/
 .bodytal{
-  background-image: url(../images/fondochido1.jpg);
-  background-size: cover;  
-  background-repeat: no-repeat;
-  background-position: center;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 #principal{
   width: 80%;
   height: auto; overflow: hidden;
 
-  margin: 0 auto; 
+  margin: 50px auto; 
 }
 
 #infoT{
@@ -1037,12 +1037,12 @@ body{
 }
 
 #infoT .img_post{
-  width: 150px;
+  width: 100px;
   height: 100px;
   float: left;
   margin: 7px 7px 7px 0px;
   padding: 5px;
-  border-radius: 15px;
+  border-radius: 50%;
 }
 
 #infoT .maestro{

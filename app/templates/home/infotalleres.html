@@ -7,7 +7,9 @@
 {% block content %}
 <style>
     body{
-        background-image: url(../images/fondochido1.jpg);
+        background-image: url(../../static/images/fondochido1.jpg);
+        background-size: cover;
+        background-position: 69%;
     }
     footer{
         margin-top: 0;
@@ -16,46 +18,25 @@
 <div class="bodytal">
     <section id="principal">
         <section id="infoT">
-            <article class="post">
-                <h2>Belleza</h2>
-                <img src="{{ url_for('static', filename='images/maquillaje_t.jpg') }}" alt="" class="img_post">
-                <p class="infT">
-                    El objetivo es que los usuarios que asisten a este taller, adquieran habilidades, destreza y capacidades enfocadas al cuidado físico de las personas, adquiriendo conocimientos en manicura, pedicura, cortes, colorimetría, permanentes, barbería, tratamientos capilares, faciales, maquillaje, etc. Al mismo tiempo que puedan vincularse en un mercado laboral y contribuir al bienestar económico de sus familiares.
-                </p>
-                <a href="{{ url_for('user.mytaller') }}" class="Ctalleres">Inscribirme</a>
-            </article>
-            <article class="post">
-                <h2>Manualidades</h2>
-                <img src="{{ url_for('static', filename='images/manualidades_t.jpeg') }}" alt="" class="img_post">
-                <p class="infT">
-                    Tiene como objetivo enseñar a las alumnas, diferentes técnicas para realizar Piezas Decorativos, usando artículos varios para la elaboración de los mismos de acuerdo a la temporada.
-                </p>
-                <a href="{{ url_for('user.mytaller') }}" class="Ctalleres">Inscribirme</a>
-            </article>
-            <article class="post">
-                <h2>Tejido</h2>
-                <img src="{{ url_for('static', filename='images/tejido_t.jpeg') }}" alt="" class="img_post">
-                <p class="infT">
-                    El taller de tejido tiene como objetivo enseñar a las alumnas las diferentes técnicas y puntos de crochet, tipos y colores de hilazas o estambres para cada trabajo, tipos, estilos y numeración de ganchos que deben utilizarse de acuerdo al material. Elaboración de diferentes productos: blusas, bolsas, gorros, bufandas, ponchos, juegos de baño, cenefas para toallas y cortinas.
-                </p>
-                <a href="{{ url_for('user.mytaller') }}" class="Ctalleres">Inscribirme</a>
-            </article>
-            <article class="post">
-                <h2>Bordado</h2>
-                <img src="{{ url_for('static', filename='images/tejido_t.jpeg') }}" alt="" class="img_post">
-                <p class="infT">
-                    El taller de bordado tiene como objetivo enseñar a las alumnas las diferentes técnicas de bordado, tipos de colores de hilazas o estambres para cada trabajo, estilos y numeración de agujas que deben utilizarse de acuerdo al material. Elaboración de diferentes productos: blusas, bolsas, juegos de baño, cenefas para toallas y cortinas.
-                </p>
-                <a href="{{ url_for('user.mytaller') }}" class="Ctalleres">Inscribirme</a>
-            </article>
-            <article class="post">
-                <h2>Uñas de Acrílico</h2>
-                <img src="{{ url_for('static', filename='images/unias_t.jpg') }}" alt="" class="img_post">
-                <p class="infT">
-                    Tiene como objetivo enseñar las técnicas de aplicación de uñas, así como las diferentes técnicas de decoración, 3d, gelish, mano alzada, 2d, esculturales.
-                </p>
-                <a href="{{ url_for('user.mytaller') }}" class="Ctalleres">Inscribirme</a>
-            </article>
+            {% for taller in talleres %} 
+                <article class="post">
+                    <h2>{{ taller.nombre }}</h2>
+                    <img src="{{ url_for('static', filename='images/logo-1.png') }}" alt="Logo CDC" class="img_post">
+                    <p class="infT">
+                        {{ taller.descrip }}
+                    </p>
+                    <a href="{{ url_for('user.mytaller') }}" class="Ctalleres">Inscribirme</a>
+                </article>
+            {% endfor %}
         </section>
+</div>
+<div class="bodytal" style="min-height: 0;">
+    {% if page %} 
+    <div class="numpages">
+      {% for i in range(page) %}
+        <a href="{{ url_for('user.mytaller', page=(i + 1)) }}">{{ i + 1 }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
